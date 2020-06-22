@@ -1,17 +1,21 @@
+package entityes;
+
 public abstract class Product {
 
     private String description;
     private double price;
-    private final String code;
+    private int amount;
+    private final int barCode;
 
-    protected Product(String description, double price, String code) {
+    protected Product(String description, double price, int amount, int barCode) {
         this.description = description;
         this.price = price;
-        this.code = code;
+        this.barCode = barCode;
+        this.amount = amount;
     }
 
-    public String getCode() {
-        return this.code;
+    public int getBarCode() {
+        return this.barCode;
     }
 
     public String getDescription() {
