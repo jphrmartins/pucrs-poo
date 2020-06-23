@@ -1,26 +1,31 @@
 package entityes;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Stock {
 
-    ArrayList<Product> listOfProducts;
+    Map<String, Product> listOfProducts;
 
     public Stock() {
-        this.listOfProducts = new ArrayList<>();
+        this.listOfProducts = new HashMap<String, Product>();
     }
 
-    public Product getProduct(int barCode) {
-        for (Product product : listOfProducts)
-            if (product.getBarCode() == barCode)
-                return product;
-        System.out.println("entityes.Product not found in stock");
-        return null;
+    public Product getProduct(String barCode) {
+        return this.listOfProducts.get(barCode);
     }
 
-    public ArrayList<Product> getListOfProducts() {
-        return listOfProducts;
+    public Map getListOfProducts() {
+        return this.listOfProducts;
+    }
+    
+    public void addProduct(Product product){
+        this.listOfProducts.put(product.getBarCode(), product);
     }
 
+    public boolean removeProduct(String barCode){
+        // TODO: 22/06/2020
+        return true;
+    }
 
 }

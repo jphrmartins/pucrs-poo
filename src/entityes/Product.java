@@ -1,20 +1,26 @@
 package entityes;
 
+import java.util.regex.Pattern;
+
 public abstract class Product {
 
     private String description;
     private double price;
     private int amount;
-    private final int barCode;
+    private final String barCode;
 
-    protected Product(String description, double price, int amount, int barCode) {
+    protected Product(String description, double price, int amount, String barCode) {
         this.description = description;
         this.price = price;
-        this.barCode = barCode;
+        if(Pattern.matches("[]0-9]", barCode) == true){
+            this.barCode = barCode;
+        }else{
+            this.barCode = "XXXXX"; // TODO: 22/06/2020
+        }
         this.amount = amount;
     }
 
-    public int getBarCode() {
+    public String getBarCode() {
         return this.barCode;
     }
 
