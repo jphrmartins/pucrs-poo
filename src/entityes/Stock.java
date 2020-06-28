@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Stock {
 
-    Map<String, Product> listOfProducts;
+    private Map<String, Product> listOfProducts;
 
     public Stock() {
         this.listOfProducts = new HashMap<String, Product>();
