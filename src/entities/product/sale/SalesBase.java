@@ -10,5 +10,11 @@ public class SalesBase {
         this.sales = sales;
     }
 
+    Sale getSale(int saleId) {
+        return sales.get(saleId);
+    }
 
+    public Map<Integer, Sale> getSales() {
+        return sales;
+    }
 }
