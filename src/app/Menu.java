@@ -1,7 +1,6 @@
 package app;
 
 import business.MenuOperator;
-import entities.MenuOptions;
 import entities.MenuRange;
 import entities.MenuType;
 
@@ -18,7 +17,7 @@ public class Menu {
         this.scanner = scanner;
     }
 
-    public void executeType(MenuType menuType, Scanner scanner) {
+    public void executeType(MenuType menuType) {
         menuOperators
                 .stream()
                 .filter(it -> it.getMenuType() == menuType)

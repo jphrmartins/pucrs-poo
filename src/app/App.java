@@ -1,24 +1,32 @@
 package app;
 
-import entities.MenuOptions;
+import business.SalesMenu;
 import entities.MenuType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Menu menu = new Menu(new ArrayList<>(), scanner);
+        Menu menu = new Menu(Arrays.asList(new SalesMenu()), scanner);
         int option = 1;
 
         while (option >= 1 && option <= 4) {
-            MenuOptions.mainOptions();
+            System.out.println(showMenu());
             option = readOption(scanner);
             MenuType menuType = chooseOptions(option);
             if (menuType == MenuType.QUIT) break;
-            else menu.executeType(menuType, scanner);
+            else menu.executeType(menuType);
         }
+    }
+
+    private static String showMenu() {
+        return "1 - Vendas \n" +
+                "2 - Controle de estoque \n" +
+                "3 - Relatorios \n" +
+                "4 - Sair";
     }
 
     private static int readOption(Scanner scanner) {
