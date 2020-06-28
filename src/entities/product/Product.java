@@ -1,5 +1,7 @@
 package entities.product;
 
+import entities.product.stock.exception.InvalidBarCodeException;
+
 import java.util.regex.Pattern;
 
 public abstract class Product {
@@ -11,10 +13,10 @@ public abstract class Product {
     public Product(String description, double price, String barCode) {
         this.description = description;
         this.price = price;
-        if(Pattern.matches("[]0-9]", barCode) == true){
+        if(Pattern.matches("`[0-9]+$", barCode)){
             this.barCode = barCode;
         }else{
-            this.barCode = "XXXXX"; // TODO: 22/06/2020
+            throw new InvalidBarCodeException("Codigo de barra deve serguir o padão de somente numeros.");
         }
     }
 

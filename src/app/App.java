@@ -1,7 +1,9 @@
 package app;
 
 import business.SalesMenu;
+import business.StockMenu;
 import entities.menu.MenuType;
+import entities.product.stock.Stock;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -9,7 +11,8 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Menu menu = new Menu(Arrays.asList(new SalesMenu()), scanner);
+        Stock stock = new Stock();
+        Menu menu = new Menu(Arrays.asList(new SalesMenu(stock),new StockMenu(stock, scanner)), scanner);
         int option = 1;
 
         while (option >= 1 && option <= 4) {
