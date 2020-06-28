@@ -1,4 +1,4 @@
-package entities;
+package entities.product;
 
 import java.util.regex.Pattern;
 

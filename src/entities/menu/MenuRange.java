@@ -1,4 +1,4 @@
-package entities;
+package entities.menu;
 
 public class MenuRange {
     private int startRange;

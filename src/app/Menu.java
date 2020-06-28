@@ -1,8 +1,8 @@
 package app;
 
 import business.MenuOperator;
-import entities.MenuRange;
-import entities.MenuType;
+import entities.menu.MenuRange;
+import entities.menu.MenuType;
 
 import java.util.List;
 import java.util.Scanner;

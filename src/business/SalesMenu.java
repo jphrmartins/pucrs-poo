@@ -1,9 +1,17 @@
 package business;
 
-import entities.MenuRange;
-import entities.MenuType;
+import entities.menu.MenuRange;
+import entities.menu.MenuType;
+import entities.product.stock.Stock;
 
 public class SalesMenu implements MenuOperator {
+
+    private Stock stock;
+
+    public SalesMenu(Stock stock) {
+        this.stock = stock;
+    }
+
     @Override
     public MenuType getMenuType() {
         return MenuType.SALES;

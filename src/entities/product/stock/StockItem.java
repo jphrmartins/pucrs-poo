@@ -1,6 +1,8 @@
-package entities;
+package entities.product.stock;
 
-public class StockItem extends Product{
+import entities.product.Product;
+
+public class StockItem extends Product {
 
     private int amount;
 

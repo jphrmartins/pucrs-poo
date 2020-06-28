@@ -1,9 +1,8 @@
 package app;
 
 import business.SalesMenu;
-import entities.MenuType;
+import entities.menu.MenuType;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 

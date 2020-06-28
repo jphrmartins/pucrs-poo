@@ -1,4 +1,6 @@
-package entities;
+package entities.product.sale;
+
+import entities.product.Product;
 
 public class SaleItem extends Product {
 

@@ -1,4 +1,4 @@
-package entities;
+package entities.product.stock;
 
 import java.util.HashMap;
 import java.util.Map;
