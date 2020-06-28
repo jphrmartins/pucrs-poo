@@ -1,13 +1,13 @@
 package app;
 
-import entityes.MenuOptions;
+import entities.MenuOptions;
 
 import java.util.Scanner;
 
 public class Menu {
     public static Scanner in = new Scanner(System.in);
 
-    public void dashBoard(int option){
+    public void chooseOptions(int option){
         switch (option){
             case 1:
                 salesMenu();
@@ -18,26 +18,14 @@ public class Menu {
             case 3:
                 reportMenu();
                 break;
-            default:
-                if(option != 4)
-                System.out.println("Opição invalida nesse Menu");
+            default: break;
         }
     }
 
-    public int readReply() {
-        System.out.println("Digite o número do comando que deseja executar:");
-        try {
-            return in.nextInt();
-        } catch (NumberFormatException exception) {
-            System.out.println("O programa só aceita números inteiros");
-        }
-        return 4;
-    }
-
-    public void salesMenu(){
+    private void salesMenu(){
         int option;
         MenuOptions.salesOptions();
-        option = readReply();
+        option = readReply(1, 5);
         switch (option){
             case 1:
                 // TODO: 28/06/2020  
@@ -45,11 +33,30 @@ public class Menu {
 
     }
 
-    public void stockControlMenu(){
+    private void stockControlMenu(){
 
     }
     
-    public void reportMenu(){
+    private void reportMenu(){
         
+    }
+
+    private int readReply(int startRange, int endRange) {
+        int number = 0;
+        System.out.println("Digite o número do comando que deseja executar: ");
+        boolean validNumber = false;
+        while (!validNumber) {
+            try {
+                number = in.nextInt();
+                if (number < startRange || number > endRange) {
+                    System.out.println("Por favor, insira um número dentro do conjunto [" + startRange + "," + endRange + "]");
+                } else {
+                    validNumber = true;
+                }
+            } catch (NumberFormatException exception) {
+                System.out.println("O programa só aceita números inteiros");
+            }
+        }
+        return number;
     }
 }
