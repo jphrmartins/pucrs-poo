@@ -1,5 +1,7 @@
 package App;
 
+import entityes.MenuOptions;
+
 import java.util.Scanner;
 
 public class Menu {
@@ -32,14 +34,14 @@ public class Menu {
         return 4;
     }
 
-    public void mainMenuOptions(){
-        System.out.println("1 - Vendas \n" +
-                            "2 - Controle de estoque \n" +
-                            "3 - Relatorios \n" +
-                            "4 - Sair");
-    }
-
     public void salesMenu(){
+        int option;
+        MenuOptions.salesOptions();
+        option = readReply();
+        switch (option){
+            case 1:
+                // TODO: 28/06/2020  
+        }
 
     }
 

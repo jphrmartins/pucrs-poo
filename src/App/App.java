@@ -1,5 +1,7 @@
 package App;
 
+import entityes.MenuOptions;
+
 public class App {
     public static void main(String[] args) {
 
@@ -7,7 +9,7 @@ public class App {
         int option = 0;
 
         while (option != 4) {
-            menu.mainMenuOptions();
+            MenuOptions.mainOptions();
             option = menu.readReply();
             menu.dashBoard(option);
         }
