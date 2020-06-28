@@ -15,17 +15,12 @@ public class Stock {
         return this.listOfProducts.get(barCode);
     }
 
-    public Map getListOfProducts() {
+    public Map<String, StockItem> getListOfProducts() {
         return this.listOfProducts;
     }
     
     public void addProduct(StockItem stockItem){
         this.listOfProducts.put(stockItem.getBarCode(), stockItem);
-    }
-
-    public boolean removeProduct(String barCode){
-        // TODO: 22/06/2020
-        return true;
     }
 
 }

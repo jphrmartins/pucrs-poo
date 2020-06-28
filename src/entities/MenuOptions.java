@@ -18,4 +18,13 @@ public class MenuOptions {
                 "5 - Voltar"
         );
     }
+
+    public static void stockOptions() {
+        System.out.println("1 - Cadastrar novo pruduto \n" +
+                "2 - Listar todos os p´rodutos \n" +
+                "3 - Repor produto em estoque \n" +
+                "4 - Voltar"
+        );
+    }
+
 }
