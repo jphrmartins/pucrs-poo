@@ -1,55 +1,45 @@
 package app;
 
+import business.MenuOperator;
 import entities.MenuOptions;
+import entities.MenuRange;
+import entities.MenuType;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-    public static Scanner in = new Scanner(System.in);
 
-    public void chooseOptions(int option){
-        switch (option){
-            case 1:
-                salesMenu();
-                break;
-            case 2:
-                stockControlMenu();
-                break;
-            case 3:
-                reportMenu();
-                break;
-            default: break;
-        }
+    private List<MenuOperator> menuOperators;
+    private Scanner scanner;
+
+    public Menu(List<MenuOperator> menuOperators, Scanner scanner) {
+        this.menuOperators = menuOperators;
+        this.scanner = scanner;
     }
 
-    private void salesMenu(){
-        int option;
-        MenuOptions.salesOptions();
-        option = readReply(1, 5);
-        switch (option){
-            case 1:
-                // TODO: 28/06/2020  
-        }
-
+    public void executeType(MenuType menuType, Scanner scanner) {
+        menuOperators
+                .stream()
+                .filter(it -> it.getMenuType() == menuType)
+                .findFirst()
+                .ifPresent(it -> {
+                    System.out.println(it.getMenuText());
+                    int option = readReply(it.getMenuRange());
+                    it.operate(option);
+                });
     }
 
-    private void stockControlMenu(){
-
-    }
-    
-    private void reportMenu(){
-        
-    }
-
-    private int readReply(int startRange, int endRange) {
+    private int readReply(MenuRange menuRange) {
         int number = 0;
         System.out.println("Digite o número do comando que deseja executar: ");
         boolean validNumber = false;
         while (!validNumber) {
             try {
-                number = in.nextInt();
-                if (number < startRange || number > endRange) {
-                    System.out.println("Por favor, insira um número dentro do conjunto [" + startRange + "," + endRange + "]");
+                number = scanner.nextInt();
+                if (number < menuRange.getStartRange() || number > menuRange.getEndRange()) {
+                    System.out.println("Por favor, insira um número dentro do conjunto [" + menuRange.getStartRange()
+                            + "," + menuRange.getEndRange() + "]");
                 } else {
                     validNumber = true;
                 }

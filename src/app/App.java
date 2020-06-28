@@ -1,19 +1,23 @@
 package app;
 
 import entities.MenuOptions;
+import entities.MenuType;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Menu menu = new Menu();
+        Menu menu = new Menu(new ArrayList<>(), scanner);
         int option = 1;
 
-        while (option >=1 && option <= 4) {
+        while (option >= 1 && option <= 4) {
             MenuOptions.mainOptions();
             option = readOption(scanner);
-            menu.chooseOptions(option);
+            MenuType menuType = chooseOptions(option);
+            if (menuType == MenuType.QUIT) break;
+            else menu.executeType(menuType, scanner);
         }
     }
 
@@ -26,6 +30,19 @@ public class App {
             }
         }
         return number;
+    }
+
+    private static MenuType chooseOptions(int option) {
+        switch (option) {
+            case 1:
+                return MenuType.SALES;
+            case 2:
+                return MenuType.STOCK_CONTROL;
+            case 3:
+                return MenuType.REPORTS;
+            default:
+                return MenuType.QUIT;
+        }
     }
 
     private static boolean numberIsOutOfRange(int number) {
