@@ -3,6 +3,7 @@ package business;
 import entities.menu.MenuRange;
 import entities.menu.MenuType;
 import entities.product.stock.Stock;
+import entities.product.stock.StockItem;
 
 import java.util.Scanner;
 
@@ -36,5 +37,22 @@ public class StockMenu implements MenuOperator {
     @Override
     public void operate(int option) {
 
+        switch (option){
+            case 1:
+                String description = "";
+                double price = 0;
+                String barCode = "";
+                int amount = 0;
+                System.out.println("Entre com a descrição, preço, código de barras e quantidae inicial do estoque.");
+                System.out.print("Descrição: ");
+                description = scanner.nextLine();
+                System.out.print("\n" + "Preço: ");
+                price = scanner.nextDouble();
+                System.out.print("\n" + "Código de barras: ");
+                barCode = scanner.nextLine();
+                System.out.println("\n" + "Quantidade: ");
+                amount = scanner.nextInt();
+                stock.addProduct(new StockItem(description, price, barCode, amount));
+        }
     }
 }
