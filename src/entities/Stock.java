@@ -19,8 +19,8 @@ public class Stock {
         return this.listOfProducts;
     }
     
-    public void addProduct(stockItem product){
-        this.listOfProducts.put(product.getBarCode(), product);
+    public void addProduct(stockItem stockItem){
+        this.listOfProducts.put(stockItem.getBarCode(), stockItem);
     }
 
     public boolean removeProduct(String barCode){
