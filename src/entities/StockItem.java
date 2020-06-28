@@ -1,10 +1,10 @@
 package entities;
 
-public class saleItem extends Product {
+public class StockItem extends Product{
 
     private int amount;
 
-    public saleItem(String description, double price, String barCode, int amount) {
+    public StockItem(String description, double price, String barCode, int amount) {
         super(description, price, barCode);
         this.amount = amount;
     }

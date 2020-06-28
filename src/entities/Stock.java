@@ -5,13 +5,13 @@ import java.util.Map;
 
 public class Stock {
 
-    private Map<String, stockItem> listOfProducts;
+    private Map<String, StockItem> listOfProducts;
 
     public Stock() {
-        this.listOfProducts = new HashMap<String, stockItem>();
+        this.listOfProducts = new HashMap<String, StockItem>();
     }
 
-    public stockItem getProduct(String barCode) {
+    public StockItem getProduct(String barCode) {
         return this.listOfProducts.get(barCode);
     }
 
@@ -19,7 +19,7 @@ public class Stock {
         return this.listOfProducts;
     }
     
-    public void addProduct(stockItem stockItem){
+    public void addProduct(StockItem stockItem){
         this.listOfProducts.put(stockItem.getBarCode(), stockItem);
     }
 
