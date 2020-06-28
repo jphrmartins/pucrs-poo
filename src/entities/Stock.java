@@ -1,16 +1,17 @@
-package entityes;
+package entities;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Stock {
 
-    private Map<String, Product> listOfProducts;
+    private Map<String, stockItem> listOfProducts;
 
     public Stock() {
-        this.listOfProducts = new HashMap<String, Product>();
+        this.listOfProducts = new HashMap<String, stockItem>();
     }
 
-    public Product getProduct(String barCode) {
+    public stockItem getProduct(String barCode) {
         return this.listOfProducts.get(barCode);
     }
 
@@ -18,7 +19,7 @@ public class Stock {
         return this.listOfProducts;
     }
     
-    public void addProduct(Product product){
+    public void addProduct(stockItem product){
         this.listOfProducts.put(product.getBarCode(), product);
     }
 

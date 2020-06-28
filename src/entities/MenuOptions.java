@@ -1,4 +1,4 @@
-package entityes;
+package entities;
 
 public class MenuOptions {
 

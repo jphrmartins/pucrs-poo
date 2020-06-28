@@ -1,6 +1,6 @@
 package app;
 
-import entityes.MenuOptions;
+import entities.MenuOptions;
 
 public class App {
     public static void main(String[] args) {
