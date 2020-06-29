@@ -35,7 +35,7 @@ public class Menu {
         boolean validNumber = false;
         while (!validNumber) {
             try {
-                number = scanner.nextInt();
+                number = Integer.parseInt(scanner.nextLine());
                 if (number < menuRange.getStartRange() || number > menuRange.getEndRange()) {
                     System.out.println("Por favor, insira um número dentro do conjunto [" + menuRange.getStartRange()
                             + "," + menuRange.getEndRange() + "]");

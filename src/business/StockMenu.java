@@ -45,9 +45,9 @@ public class StockMenu implements MenuOperator {
                 int amount = 0;
                 System.out.println("Entre com a descrição, preço, código de barras e quantidae inicial do estoque.");
                 System.out.print("Descrição: ");
-                description = scanner.next();
+                description = scanner.nextLine();
                 System.out.print("\n" + "Preço: ");
-                price = scanner.nextDouble();
+                price = Double.parseDouble(scanner.nextLine());
                 System.out.print("\n" + "Código de barras: ");
                 barCode = scanner.next();
                 System.out.print("\n" + "Quantidade: ");
