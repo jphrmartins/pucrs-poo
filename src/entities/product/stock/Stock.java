@@ -1,5 +1,7 @@
 package entities.product.stock;
 
+import entities.product.Product;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,9 +20,14 @@ public class Stock {
     public Map<String, StockItem> getListOfProducts() {
         return this.listOfProducts;
     }
+
+    public void listenProducts(){
+        for (Product product: this.listOfProducts.values()) {
+            System.out.println(product.getDescription());
+        }
+    }
     
     public void addProduct(StockItem stockItem){
         this.listOfProducts.put(stockItem.getBarCode(), stockItem);
     }
-
 }

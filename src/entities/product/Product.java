@@ -13,7 +13,7 @@ public abstract class Product {
     public Product(String description, double price, String barCode) {
         this.description = description;
         this.price = price;
-        if(Pattern.matches("`[0-9]+$", barCode)){
+        if(Pattern.matches("[0-9]+", barCode)){
             this.barCode = barCode;
         }else{
             throw new InvalidBarCodeException("Codigo de barra deve serguir o padão de somente numeros.");

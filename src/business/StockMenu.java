@@ -45,14 +45,18 @@ public class StockMenu implements MenuOperator {
                 int amount = 0;
                 System.out.println("Entre com a descrição, preço, código de barras e quantidae inicial do estoque.");
                 System.out.print("Descrição: ");
-                description = scanner.nextLine();
+                description = scanner.next();
                 System.out.print("\n" + "Preço: ");
                 price = scanner.nextDouble();
                 System.out.print("\n" + "Código de barras: ");
-                barCode = scanner.nextLine();
-                System.out.println("\n" + "Quantidade: ");
+                barCode = scanner.next();
+                System.out.print("\n" + "Quantidade: ");
                 amount = scanner.nextInt();
                 stock.addProduct(new StockItem(description, price, barCode, amount));
+                break;
+            case 2:
+                stock.listenProducts();
+                break;
         }
     }
 }

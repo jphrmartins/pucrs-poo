@@ -15,7 +15,7 @@ public class App {
         Menu menu = new Menu(Arrays.asList(new SalesMenu(stock),new StockMenu(stock, scanner)), scanner);
         int option = 1;
 
-        while (option >= 1 && option <= 4) {https://meet.jit.si/jp
+        while (option >= 1 && option <= 4) {
             System.out.println(showMenu());
             option = readOption(scanner);
             MenuType menuType = chooseOptions(option);
