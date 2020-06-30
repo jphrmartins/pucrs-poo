@@ -1,7 +1,7 @@
 package business;
 
-import entities.menu.MenuRange;
-import entities.menu.MenuType;
+import entities.MenuRange;
+import entities.MenuType;
 
 public interface MenuOperator {
     String getMenuText();

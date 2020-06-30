@@ -1,4 +1,4 @@
-package entities.product.stock.exception;
+package entities;
 
 public class InvalidBarCodeException extends RuntimeException {
     public InvalidBarCodeException(String messege) {

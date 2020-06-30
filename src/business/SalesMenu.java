@@ -1,8 +1,8 @@
 package business;
 
-import entities.menu.MenuRange;
-import entities.menu.MenuType;
-import entities.product.stock.Stock;
+import entities.MenuRange;
+import entities.MenuType;
+import entities.Stock;
 
 public class SalesMenu implements MenuOperator {
 

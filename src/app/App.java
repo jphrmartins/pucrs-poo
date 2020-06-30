@@ -1,18 +1,21 @@
 package app;
 
+import business.Menu;
 import business.SalesMenu;
 import business.StockMenu;
-import entities.menu.MenuType;
-import entities.product.stock.Stock;
+import entities.MenuType;
+import entities.Stock;
 
 import java.util.Arrays;
 import java.util.Scanner;
+
+import static business.NumberReader.readInteger;
 
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Stock stock = new Stock();
-        Menu menu = new Menu(Arrays.asList(new SalesMenu(stock),new StockMenu(stock, scanner)), scanner);
+        Menu menu = new Menu(Arrays.asList(new SalesMenu(stock), new StockMenu(stock, scanner)), scanner);
         int option = 1;
 
         while (option >= 1 && option <= 4) {
@@ -32,10 +35,10 @@ public class App {
     }
 
     private static int readOption(Scanner scanner) {
-        int number = scanner.nextInt();
+        int number = readInteger(scanner);
         while (numberIsOutOfRange(number)) {
             System.out.println("Por favor, digite um numero dentro do conjuto [1,4]: ");
-            number = scanner.nextInt();
+            number = readInteger(scanner);
         }
         return number;
     }

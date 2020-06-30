@@ -1,10 +1,10 @@
-package entities.product.sale;
+package entities;
 
 import java.util.List;
 
 public class Sale {
     private SaleStatus status;
-    private List<SaleItem> items;
+    private List<Product> items;
 
 
 }

@@ -1,4 +1,6 @@
-package entities.product.sale;
+package entities;
+
+import entities.Sale;
 
 import java.util.Map;
 

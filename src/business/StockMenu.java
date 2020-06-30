@@ -1,11 +1,11 @@
 package business;
 
-import entities.menu.MenuRange;
-import entities.menu.MenuType;
-import entities.product.stock.Stock;
-import entities.product.stock.StockItem;
+import entities.*;
 
 import java.util.Scanner;
+import java.util.regex.Pattern;
+
+import static business.NumberReader.*;
 
 public class StockMenu implements MenuOperator {
     private Stock stock;
@@ -26,7 +26,7 @@ public class StockMenu implements MenuOperator {
 
     @Override
     public MenuRange getMenuRange() {
-        return new MenuRange(1,4);
+        return new MenuRange(1, 4);
     }
 
     @Override
@@ -36,27 +36,50 @@ public class StockMenu implements MenuOperator {
 
     @Override
     public void operate(int option) {
-
-        switch (option){
+        switch (option) {
             case 1:
-                String description = "";
-                double price = 0;
-                String barCode = "";
-                int amount = 0;
-                System.out.println("Entre com a descrição, preço, código de barras e quantidae inicial do estoque.");
-                System.out.print("Descrição: ");
-                description = scanner.nextLine();
-                System.out.print("\n" + "Preço: ");
-                price = Double.parseDouble(scanner.nextLine());
-                System.out.print("\n" + "Código de barras: ");
-                barCode = scanner.next();
-                System.out.print("\n" + "Quantidade: ");
-                amount = scanner.nextInt();
-                stock.addProduct(new StockItem(description, price, barCode, amount));
-                break;
+               registerNewProduct();
+               break;
             case 2:
-                stock.listenProducts();
+                listAllProducts();
                 break;
+            case 3:
+                restockItem();
+                break;
+            default:
+                break;
+
         }
     }
+
+    private void restockItem() {
+
+    }
+
+    private void listAllProducts() {
+        stock.getAllProducts().forEach(System.out::println);
+    }
+
+    private void registerNewProduct() {
+        System.out.println("Entre com a descrição, preço, código de barras e quantidae inicial do estoque.");
+        System.out.print("Código de barras: ");
+        String barCode = readBarCode();
+        System.out.print("Descrição: ");
+        String description = scanner.nextLine();
+        System.out.print("Preço: ");
+        double price = readDouble(scanner);
+        System.out.print("Quantidade: ");
+        int amount = readInteger(scanner);
+        stock.addProduct(new Product(description, price, barCode, amount));
+    }
+
+    private String readBarCode() {
+        String barCode = scanner.nextLine();
+        if (Pattern.matches("[0-9]+", barCode)) {
+            return barCode;
+        } else {
+            throw new InvalidBarCodeException("Codigo de barra deve serguir o padão de somente numeros.");
+        }
+    }
+
 }

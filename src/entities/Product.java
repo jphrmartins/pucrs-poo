@@ -1,0 +1,45 @@
+package entities;
+
+import java.util.regex.Pattern;
+
+public class Product {
+
+    private String description;
+    private double price;
+    private final String barCode;
+    private int amount;
+
+
+    public Product(String description, double price, String barCode, int amount) {
+        this.description = description;
+        this.price = price;
+        this.amount = amount;
+        this.barCode = barCode;
+    }
+
+    public String getBarCode() {
+        return this.barCode;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public double getPrice() {
+        return this.price;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "description='" + description + '\'' +
+                ", price=" + price +
+                ", barCode='" + barCode + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
+}
