@@ -38,8 +38,8 @@ public class StockMenu implements MenuOperator {
     public void operate(int option) {
         switch (option) {
             case 1:
-               registerNewProduct();
-               break;
+                registerNewProduct();
+                break;
             case 2:
                 listAllProducts();
                 break;
@@ -53,7 +53,18 @@ public class StockMenu implements MenuOperator {
     }
 
     private void restockItem() {
-
+        System.out.print("Entre com o código de barras do produto: ");
+        String barCode = readBarCode();
+        if (stock.findProduct(barCode)){
+            System.out.print("\n" + "Entre com a quantidade: ");
+            int amount = readInteger(scanner);
+            stock.stockAdjust(barCode, amount);
+        }else{
+            System.out.println("Produto não encontrado no estoque. \n" +
+                    "Deseja cadastrar este produto <Y,N>? ");
+            String option = scanner.nextLine();
+            if (option.equals("Y")) registerNewProduct();
+        }
     }
 
     private void listAllProducts() {

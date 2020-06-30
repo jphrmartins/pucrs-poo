@@ -1,7 +1,5 @@
 package entities;
 
-import java.util.regex.Pattern;
-
 public class Product {
 
     private String description;
@@ -31,6 +29,10 @@ public class Product {
 
     public int getAmount() {
         return amount;
+    }
+
+    public void setAmount(int amount){
+        this.amount = amount;
     }
 
     @Override
