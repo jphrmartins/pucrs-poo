@@ -37,11 +37,11 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "description='" + description + '\'' +
-                ", price=" + price +
-                ", barCode='" + barCode + '\'' +
-                ", amount=" + amount +
+        return "Produto{" +
+                "Descrição = '" + description + '\'' +
+                ", Preço = " + price +
+                ", Codigo de Barras = '" + barCode + '\'' +
+                ", Quantidade Disponível em Estoque = " + amount +
                 '}';
     }
 }
