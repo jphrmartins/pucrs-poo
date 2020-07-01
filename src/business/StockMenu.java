@@ -55,15 +55,17 @@ public class StockMenu implements MenuOperator {
     private void restockItem() {
         System.out.print("Entre com o código de barras do produto: ");
         String barCode = readBarCode();
-        if (stock.findProduct(barCode)){
+        Product product = stock.findProduct(barCode);
+        if (product != null){
+            System.out.println("Produto encontrado: " + product);
             System.out.print("\n" + "Entre com a quantidade: ");
             int amount = readInteger(scanner);
             stock.stockAdjust(barCode, amount);
         }else{
             System.out.println("Produto não encontrado no estoque. \n" +
-                    "Deseja cadastrar este produto <Y,N>? ");
+                    "Deseja cadastrar este produto <S,N>? ");
             String option = scanner.nextLine();
-            if (option.equals("Y")) registerNewProduct();
+            if (option.equals("S")) registerNewProduct();
         }
     }
 
@@ -86,11 +88,12 @@ public class StockMenu implements MenuOperator {
 
     private String readBarCode() {
         String barCode = scanner.nextLine();
-        if (Pattern.matches("[0-9]+", barCode)) {
-            return barCode;
-        } else {
-            throw new InvalidBarCodeException("Codigo de barra deve serguir o padão de somente numeros.");
+        while(!Pattern.matches("^[0-9]+$", barCode)) {
+            System.out.println("Codigo de barras inválido, por favor, entre com um código de barras validos");
+            System.out.println("Código de barras devem conter somente numeros");
+            barCode = scanner.nextLine();
         }
+        return barCode;
     }
 
 }

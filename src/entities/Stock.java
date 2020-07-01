@@ -14,11 +14,11 @@ public class Stock {
         this.listOfProducts = new HashMap<String, Product>();
     }
 
-    public boolean findProduct(String barCode){
+    public Product findProduct(String barCode){
         for (Product product : this.listOfProducts.values()) {
-            if (product.getBarCode().equals(barCode)) return true;
+            if (product.getBarCode().equals(barCode)) return product;
         }
-        return false;
+        return null;
     }
 
     public Product getProduct(String barCode) {
