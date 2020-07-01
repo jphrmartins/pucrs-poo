@@ -3,7 +3,7 @@ package business;
 import entities.MenuRange;
 import entities.MenuType;
 
-public interface MenuOperator {
+public interface BaseMenuOperator {
     String getMenuText();
     MenuRange getMenuRange();
     MenuType getMenuType();

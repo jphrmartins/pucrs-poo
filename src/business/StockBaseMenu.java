@@ -7,11 +7,11 @@ import java.util.regex.Pattern;
 
 import static business.NumberReader.*;
 
-public class StockMenu implements MenuOperator {
+public class StockBaseMenu implements BaseMenuOperator {
     private Stock stock;
     private Scanner scanner;
 
-    public StockMenu(Stock stock, Scanner scanner) {
+    public StockBaseMenu(Stock stock, Scanner scanner) {
         this.stock = stock;
         this.scanner = scanner;
     }
@@ -48,7 +48,6 @@ public class StockMenu implements MenuOperator {
                 break;
             default:
                 break;
-
         }
     }
 
@@ -58,14 +57,14 @@ public class StockMenu implements MenuOperator {
         Product product = stock.findProduct(barCode);
         if (product != null){
             System.out.println("Produto encontrado: " + product);
-            System.out.print("\n" + "Entre com a quantidade: ");
+            System.out.print("Entre com a quantidade: ");
             int amount = readInteger(scanner);
             stock.stockAdjust(barCode, amount);
         }else{
             System.out.println("Produto não encontrado no estoque. \n" +
                     "Deseja cadastrar este produto <S,N>? ");
             String option = scanner.nextLine();
-            if (option.equals("S")) registerNewProduct();
+            if (option.equalsIgnoreCase("S")) registerNewProduct();
         }
     }
 

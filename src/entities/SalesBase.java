@@ -2,6 +2,8 @@ package entities;
 
 import entities.Sale;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class SalesBase {
@@ -18,5 +20,9 @@ public class SalesBase {
 
     public Map<Integer, Sale> getSales() {
         return sales;
+    }
+
+    public List<Sale> getAllSales() {
+        return new ArrayList<>(sales.values());
     }
 }

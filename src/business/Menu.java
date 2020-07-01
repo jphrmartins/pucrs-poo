@@ -10,24 +10,24 @@ import static business.NumberReader.readInteger;
 
 public class Menu {
 
-    private List<MenuOperator> menuOperators;
+    private List<BaseMenuOperator> baseMenuOperators;
     private Scanner scanner;
 
-    public Menu(List<MenuOperator> menuOperators, Scanner scanner) {
-        this.menuOperators = menuOperators;
+    public Menu(List<BaseMenuOperator> baseMenuOperators, Scanner scanner) {
+        this.baseMenuOperators = baseMenuOperators;
         this.scanner = scanner;
     }
 
     public void executeType(MenuType menuType) {
-        for (MenuOperator menuOperator : menuOperators) {
-            if (menuOperator.getMenuType() == menuType) {
-                System.out.println(menuOperator.getMenuText());
-                int option = readReply(menuOperator.getMenuRange());
-                while (option >= menuOperator.getMenuRange().getStartRange() && option < menuOperator.getMenuRange().getEndRange()) {
-                    menuOperator.operate(option);
+        for (BaseMenuOperator baseMenuOperator : baseMenuOperators) {
+            if (baseMenuOperator.getMenuType() == menuType) {
+                System.out.println(baseMenuOperator.getMenuText());
+                int option = readReply(baseMenuOperator.getMenuRange());
+                while (option >= baseMenuOperator.getMenuRange().getStartRange() && option < baseMenuOperator.getMenuRange().getEndRange()) {
+                    baseMenuOperator.operate(option);
                     System.out.println("===============================");
-                    System.out.println(menuOperator.getMenuText());
-                    option = readReply(menuOperator.getMenuRange());
+                    System.out.println(baseMenuOperator.getMenuText());
+                    option = readReply(baseMenuOperator.getMenuRange());
                 }
             }
         }
