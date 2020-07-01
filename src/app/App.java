@@ -19,7 +19,7 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         Stock stock = new Stock();
         SalesBase salesBase = new SalesBase(new HashMap<>());
-        Menu menu = new Menu(Arrays.asList(new SalesBaseMenu(new RegistryMenu(scanner, stock, salesBase), stock, salesBase), new StockBaseMenu(stock, scanner)), scanner);
+        Menu menu = new Menu(Arrays.asList(new SalesBaseMenu(stock, salesBase), new StockBaseMenu(stock, scanner)), scanner);
         int option = 1;
 
         while (option >= 1 && option <= 4) {

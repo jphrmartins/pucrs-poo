@@ -14,11 +14,8 @@ public class Stock {
         this.listOfProducts = new HashMap<String, Product>();
     }
 
-    public Product findProduct(String barCode){
-        for (Product product : this.listOfProducts.values()) {
-            if (product.getBarCode().equals(barCode)) return product;
-        }
-        return null;
+    public boolean hasProduct(String barCode){
+        return this.listOfProducts.containsKey(barCode);
     }
 
     public Product getProduct(String barCode) {

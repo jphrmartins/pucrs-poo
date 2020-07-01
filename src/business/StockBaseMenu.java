@@ -54,7 +54,7 @@ public class StockBaseMenu implements BaseMenuOperator {
     private void restockItem() {
         System.out.print("Entre com o código de barras do produto: ");
         String barCode = readBarCode();
-        Product product = stock.findProduct(barCode);
+        Product product = stock.getProduct(barCode);
         if (product != null){
             System.out.println("Produto encontrado: " + product);
             System.out.print("Entre com a quantidade: ");

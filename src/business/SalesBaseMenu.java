@@ -5,16 +5,18 @@ import entities.MenuType;
 import entities.SalesBase;
 import entities.Stock;
 
+import java.util.Scanner;
+
 public class SalesBaseMenu implements BaseMenuOperator {
 
-    private RegistryMenu registryMenu;
     private Stock stock;
     private SalesBase salesBase;
+    private Scanner scanner;
 
-    public SalesBaseMenu(RegistryMenu registryMenu, Stock stock, SalesBase salesBase) {
-        this.registryMenu = registryMenu;
+    public SalesBaseMenu(Stock stock, SalesBase salesBase, Scanner scanner) {
         this.stock = stock;
         this.salesBase = salesBase;
+        this.scanner = scanner;
     }
 
     @Override
@@ -55,6 +57,6 @@ public class SalesBaseMenu implements BaseMenuOperator {
     }
 
     private void registerSale() {
-        registryMenu.operate();
+        new RegistryMenu(scanner,stock,salesBase).operate();
     }
 }

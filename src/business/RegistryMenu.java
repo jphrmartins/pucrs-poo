@@ -1,5 +1,6 @@
 package business;
 
+import entities.Product;
 import entities.Sale;
 import entities.SalesBase;
 import entities.Stock;
@@ -14,11 +15,13 @@ public class RegistryMenu implements SubMenuOperator {
     private Scanner scanner;
     private Stock stock;
     private SalesBase salesBase;
+    private Sale sale;
 
     public RegistryMenu(Scanner scanner, Stock stock, SalesBase salesBase) {
         this.scanner = scanner;
         this.stock = stock;
         this.salesBase = salesBase;
+        this.sale = new Sale();
     }
 
     @Override
@@ -38,17 +41,17 @@ public class RegistryMenu implements SubMenuOperator {
     }
 
     private void addItem() {
-        // TODO: 30/06/2020 id ???? como persistir os dados do id para que nao se repitam
-        Sale sale = new Sale(1);
         String in;
-        do{
-            in = "";
+        do {
             System.out.println("Entre com o código de barras ou 'S' para sair");
             in = scanner.nextLine();
-            if (Pattern.matches("^[0-9]+$", in)){
-                sale.addItem(stock.getProduct(in));
+            if (Pattern.matches("^[0-9]+$", in)) {
+                Product product = stock.getProduct(in);
+                if (product != null) {
+                    sale.addItem(product);
+                }
             }
-        }while(!in.equals("s"));
+        } while (!in.equalsIgnoreCase("s"));
     }
 
 

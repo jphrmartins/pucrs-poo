@@ -5,13 +5,13 @@ import java.util.List;
 
 public class Sale {
 
+    private static int ACTUAL_ID = 1;
     private int id;
     private SaleStatus status;
     private List<Product> itens;
 
-    public Sale(int id) {
-        this.id = id;
-        this.status = SaleStatus.ACTIVE;
+    public Sale() {
+        this.id = ACTUAL_ID++;
         this.itens = new ArrayList<>();
     }
 
@@ -27,15 +27,16 @@ public class Sale {
         return status;
     }
 
-    public void setStatus(SaleStatus status) {
-        this.status = status;
+    public void cancel() {
+        this.status = SaleStatus.CANCELED;
+    }
+
+    public void finish() {
+        this.status = SaleStatus.FINISHED;
     }
 
     public List<Product> getItens() {
         return itens;
     }
 
-    public void setItems(List<Product> itens) {
-        this.itens = itens;
-    }
 }
