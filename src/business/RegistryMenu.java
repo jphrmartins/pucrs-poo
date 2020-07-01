@@ -1,11 +1,11 @@
 package business;
 
-import entities.MenuRange;
-import entities.MenuType;
+import entities.Sale;
 import entities.SalesBase;
 import entities.Stock;
 
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import static business.NumberReader.readInteger;
 
@@ -25,24 +25,32 @@ public class RegistryMenu implements SubMenuOperator {
     public void operate() {
         System.out.println("===============");
         showMenu();
-        /*
-        public
-         void "esse é um metodo"() {}
-         public void "esse é um numero"() {}
-         public void "esse é um texto"() {}
-
-        main () {
-        List<String> nomes = ['metodo', 'numero', 'texto']
-            nomes.forEach { "esse é um $it"() }
-        }
-        */
         int option = readOption();
         switch (option) {
-            case 1: break;
-            case 2: break;
-            case 3: break;
+            case 1:
+                addItem();
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
         }
     }
+
+    private void addItem() {
+        // TODO: 30/06/2020 id ???? como persistir os dados do id para que nao se repitam
+        Sale sale = new Sale(1);
+        String in;
+        do{
+            in = "";
+            System.out.println("Entre com o código de barras ou 'S' para sair");
+            in = scanner.nextLine();
+            if (Pattern.matches("^[0-9]+$", in)){
+                sale.addItem(stock.getProduct(in));
+            }
+        }while(!in.equals("s"));
+    }
+
 
     private int readOption() {
         int option = readInteger(scanner);

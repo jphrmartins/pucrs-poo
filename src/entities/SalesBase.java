@@ -1,7 +1,5 @@
 package entities;
 
-import entities.Sale;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +14,11 @@ public class SalesBase {
 
     Sale getSale(int saleId) {
         return sales.get(saleId);
+    }
+
+    public boolean addSale(Sale sale){
+        this.sales.put(sale.getId(), sale);
+        return true;
     }
 
     public Map<Integer, Sale> getSales() {

@@ -41,7 +41,7 @@ public class App {
     private static int readOption(Scanner scanner) {
         int number = readInteger(scanner);
         while (numberIsOutOfRange(number)) {
-            System.out.println("Por favor, digite um numero dentro do conjuto [1,4]: ");
+            System.out.println("Por favor, digite um numero dentro do conjunto [1,4]: ");
             number = readInteger(scanner);
         }
         return number;
