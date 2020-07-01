@@ -6,7 +6,7 @@ import entities.MenuType;
 import java.util.List;
 import java.util.Scanner;
 
-import static business.NumberReader.readInteger;
+import static business.ReaderHelper.readInteger;
 
 public class Menu {
 

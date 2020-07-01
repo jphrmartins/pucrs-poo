@@ -1,5 +1,5 @@
 package business;
 
-public interface SubMenuOperator {
-    void operate();
+public interface SubMenuOperator<T> {
+    void operate(T operation);
 }

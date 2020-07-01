@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Objects;
+
 public class Product {
 
     private String description;

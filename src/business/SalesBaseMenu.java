@@ -1,9 +1,6 @@
 package business;
 
-import entities.MenuRange;
-import entities.MenuType;
-import entities.SalesBase;
-import entities.Stock;
+import entities.*;
 
 import java.util.Scanner;
 
@@ -11,12 +8,12 @@ public class SalesBaseMenu implements BaseMenuOperator {
 
     private Stock stock;
     private SalesBase salesBase;
-    private Scanner scanner;
+    private SubMenuOperator<Sale> saleSubMenuSale;
 
-    public SalesBaseMenu(Stock stock, SalesBase salesBase, Scanner scanner) {
+    public SalesBaseMenu(SubMenuOperator<Sale> saleSubMenuSale, Stock stock, SalesBase salesBase) {
         this.stock = stock;
         this.salesBase = salesBase;
-        this.scanner = scanner;
+        this.saleSubMenuSale = saleSubMenuSale;
     }
 
     @Override
@@ -57,6 +54,6 @@ public class SalesBaseMenu implements BaseMenuOperator {
     }
 
     private void registerSale() {
-        new RegistryMenu(scanner,stock,salesBase).operate();
+        saleSubMenuSale.operate(new Sale());
     }
 }

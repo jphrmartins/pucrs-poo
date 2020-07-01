@@ -20,7 +20,16 @@ public class Sale {
     }
 
     public void addItem(Product product) {
-        this.itens.add(product);
+        Product productInList = findProduct(product.getBarCode());
+        if (productInList != null) productInList.setAmount(productInList.getAmount() + 1);
+        else this.itens.add(product);
+    }
+
+    public Product findProduct(String barCode) {
+        return itens.stream()
+                .filter(it -> it.getBarCode().equals(barCode))
+                .findFirst()
+                .orElseThrow(() -> new ProductNotFoundException(barCode));
     }
 
     public SaleStatus getStatus() {
@@ -39,4 +48,7 @@ public class Sale {
         return itens;
     }
 
+    public void removeItem(Product product) {
+        itens.remove(product);
+    }
 }

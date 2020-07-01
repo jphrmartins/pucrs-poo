@@ -3,9 +3,8 @@ package business;
 import entities.*;
 
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
-import static business.NumberReader.*;
+import static business.ReaderHelper.*;
 
 public class StockBaseMenu implements BaseMenuOperator {
     private Stock stock;
@@ -53,7 +52,7 @@ public class StockBaseMenu implements BaseMenuOperator {
 
     private void restockItem() {
         System.out.print("Entre com o código de barras do produto: ");
-        String barCode = readBarCode();
+        String barCode = readBarCode(scanner);
         Product product = stock.getProduct(barCode);
         if (product != null){
             System.out.println("Produto encontrado: " + product);
@@ -75,7 +74,7 @@ public class StockBaseMenu implements BaseMenuOperator {
     private void registerNewProduct() {
         System.out.println("Entre com a descrição, preço, código de barras e quantidae inicial do estoque.");
         System.out.print("Código de barras: ");
-        String barCode = readBarCode();
+        String barCode = readBarCode(scanner);
         System.out.print("Descrição: ");
         String description = scanner.nextLine();
         System.out.print("Preço: ");
@@ -84,15 +83,4 @@ public class StockBaseMenu implements BaseMenuOperator {
         int amount = readInteger(scanner);
         stock.addProduct(new Product(description, price, barCode, amount));
     }
-
-    private String readBarCode() {
-        String barCode = scanner.nextLine();
-        while(!Pattern.matches("^[0-9]+$", barCode)) {
-            System.out.println("Codigo de barras inválido, por favor, entre com um código de barras validos");
-            System.out.println("Código de barras devem conter somente numeros");
-            barCode = scanner.nextLine();
-        }
-        return barCode;
-    }
-
 }
