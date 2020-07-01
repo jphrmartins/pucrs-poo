@@ -1,12 +1,15 @@
 package app;
 
 import business.Menu;
+import business.RegistryMenu;
 import business.SalesBaseMenu;
 import business.StockBaseMenu;
 import entities.MenuType;
+import entities.SalesBase;
 import entities.Stock;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import static business.NumberReader.readInteger;
@@ -15,7 +18,8 @@ public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Stock stock = new Stock();
-        Menu menu = new Menu(Arrays.asList(new SalesBaseMenu(stock), new StockBaseMenu(stock, scanner)), scanner);
+        SalesBase salesBase = new SalesBase(new HashMap<>());
+        Menu menu = new Menu(Arrays.asList(new SalesBaseMenu(new RegistryMenu(scanner, stock, salesBase), stock, salesBase), new StockBaseMenu(stock, scanner)), scanner);
         int option = 1;
 
         while (option >= 1 && option <= 4) {
