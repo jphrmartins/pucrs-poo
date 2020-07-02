@@ -37,13 +37,18 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
                     removeItem();
                     break;
                 case 3:
-                    endSale();
-                    break;
-                case 4:
                     sale.getItens().forEach(System.out::println);
                     break;
+                case 4:
+                    endSale();
+                    break;
             }
-        } while (option >= 1 && option <= 4);
+        } while (option >= 1 && option < 4);
+    }
+
+    private void endSale() {
+        if (sale.getItens().isEmpty()) throw new CanNotCloseSaleWhithoutItemsExeption // TODO: 01/07/2020  
+        
     }
 
     private void removeItem() {

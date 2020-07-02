@@ -2,7 +2,6 @@ package business;
 
 import entities.*;
 
-import java.util.Scanner;
 
 public class SalesBaseMenu implements BaseMenuOperator {
 
