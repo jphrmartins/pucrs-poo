@@ -46,10 +46,15 @@ public class SalesBaseMenu implements BaseMenuOperator {
                 salesBase.getAllSales().forEach(System.out::println);
                 break;
             case 4:
+                regenerateReceipt();
                 break;
             default:
                 break;
         }
+    }
+
+    private void regenerateReceipt() {
+        
     }
 
     private void registerSale() {

@@ -47,6 +47,7 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
                     }
                     break;
             }
+            if (sale.getStatus() == SaleStatus.FINISHED) break;
         } while (option >= 1 && option < 4);
     }
 

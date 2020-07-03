@@ -52,9 +52,13 @@ public class Sale {
         items.remove(product);
     }
 
-    public double getTotalPrice(){
+    public double getTotalPrice() {
         return items.stream()
                 .mapToDouble(it -> it.getAmount() * it.getPrice())
                 .sum();
+    }
+
+    public Receipt generateReceipt() {
+        return null;
     }
 }
