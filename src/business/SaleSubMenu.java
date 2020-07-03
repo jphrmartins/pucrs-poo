@@ -45,10 +45,9 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
                     } catch (CanNotCloseSaleWhithoutItemsExeption ex){
                         System.err.println(ex.getMessage());
                     }
-
-
                     break;
             }
+            if (sale.getStatus() == SaleStatus.FINISHED) break;
         } while (option >= 1 && option < 4);
     }
 
