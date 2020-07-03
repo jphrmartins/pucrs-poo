@@ -2,17 +2,21 @@ package business;
 
 import entities.*;
 
+import java.util.Scanner;
+
 
 public class SalesBaseMenu implements BaseMenuOperator {
 
     private Stock stock;
+    private Scanner scanner;
     private SalesBase salesBase;
     private SubMenuOperator<Sale> saleSubMenuSale;
 
-    public SalesBaseMenu(SubMenuOperator<Sale> saleSubMenuSale, Stock stock, SalesBase salesBase) {
+    public SalesBaseMenu(SubMenuOperator<Sale> saleSubMenuSale, Stock stock, SalesBase salesBase, Scanner scanner) {
         this.stock = stock;
         this.salesBase = salesBase;
         this.saleSubMenuSale = saleSubMenuSale;
+        this.scanner = scanner;
     }
 
     @Override
@@ -41,6 +45,7 @@ public class SalesBaseMenu implements BaseMenuOperator {
                 registerSale();
                 break;
             case 2:
+                cancelSale();
                 break;
             case 3:
                 salesBase.getAllSales().forEach(System.out::println);
@@ -53,8 +58,33 @@ public class SalesBaseMenu implements BaseMenuOperator {
         }
     }
 
+    private void cancelSale() {
+        System.out.println("Para cancelar uma venda, digite o id da venda");
+        int saleId = ReaderHelper.readInteger(scanner);
+        try {
+            Sale sale = salesBase.find(saleId);
+            sale.cancel();
+            updateStocks(sale);
+        } catch (SaleNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    private void updateStocks(Sale sale) {
+        stock.updateForCancelSale(sale);
+        salesBase.cancelSale(sale);
+    }
+
     private void regenerateReceipt() {
-        
+        System.out.println("Para gerar a segunda via do recibo, por favor, digite o id da venda");
+        int saleId = ReaderHelper.readInteger(scanner);
+        try {
+            Sale sale = salesBase.find(saleId);
+            System.out.println("Recibo da venda: " + saleId);
+            System.out.println(sale.generateReceipt());
+        } catch (SaleNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 
     private void registerSale() {

@@ -1,6 +1,8 @@
 package entities;
 
 
+import app.SystemDatabase;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,10 +10,12 @@ import java.util.Map;
 
 public class Stock {
 
-    private Map<String, Product> listOfProducts;
+    private final SystemDatabase database;
+    private final Map<String, Product> listOfProducts;
 
-    public Stock() {
-        this.listOfProducts = new HashMap<String, Product>();
+    public Stock(SystemDatabase systemDatabase) {
+        this.database = systemDatabase;
+        this.listOfProducts = database.getStock();
     }
 
     public boolean hasProduct(String barCode){
@@ -32,5 +36,17 @@ public class Stock {
 
     public void stockAdjust(String barCode, int amount) {
         this.listOfProducts.get(barCode).setAmount(this.listOfProducts.get(barCode).getAmount() + amount);
+    }
+
+    public void updateForCancelSale(Sale sale) {
+        sale.getItems().stream()
+                .map(Product::duplicate)
+                .forEach(this::updateStock);
+        database.updateStockItems(listOfProducts);
+    }
+
+    private void updateStock(Product product) {
+        HashMap<String, Object> a;
+        this.listOfProducts.get(product.getBarCode())
     }
 }

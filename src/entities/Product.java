@@ -35,6 +35,10 @@ public class Product {
         this.amount = amount;
     }
 
+    public Product duplicate()  {
+        return new Product(this.description, this.price, this.barCode, this.amount);
+    }
+
     @Override
     public String toString() {
         return "Produto{" +

@@ -28,4 +28,10 @@ public class SalesBase {
     public List<Sale> getAllSales() {
         return new ArrayList<>(sales.values());
     }
+
+    public Sale find(int saleId) {
+        Sale sale = sales.get(saleId);
+        if (sale != null) return sale;
+        throw new SaleNotFoundException(saleId);
+    }
 }

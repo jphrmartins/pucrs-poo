@@ -118,7 +118,9 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
             if (Pattern.matches("^[0-9]+$", in)) {
                 Product product = stock.getProduct(in);
                 if (product != null) {
-                    sale.addItem(new Product(product.getDescription(), product.getPrice(), product.getBarCode(), 1));
+                    Product item = product.duplicate();
+                    item.setAmount(1);
+                    sale.addItem(item);
                 }
             }
         } while (!in.equalsIgnoreCase("s"));
