@@ -5,8 +5,7 @@ import entities.*;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import static business.ReaderHelper.readBarCode;
-import static business.ReaderHelper.readInteger;
+import static business.ReaderHelper.*;
 
 public class SaleSubMenu implements SubMenuOperator<Sale> {
 
@@ -41,8 +40,10 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
                     break;
                 case 4:
                     try {
-                        endSale();
-                    } catch (CanNotCloseSaleWhithoutItemsExeption ex){
+                        Receipt receipt = endSale();
+                        System.out.println("Recibo");
+                        System.out.println(receipt);
+                    } catch (CanNotCloseSaleWhithoutItemsExeption ex) {
                         System.err.println(ex.getMessage());
                     }
                     break;
@@ -51,21 +52,39 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
         } while (option >= 1 && option < 4);
     }
 
-    private void endSale() {
+    private Receipt endSale() {
         if (sale.getItems().isEmpty()) throw new CanNotCloseSaleWhithoutItemsExeption();
-        else{
-            if (sale.getTotalPrice() >= 250){
-                System.out.println("Deseja aplicar desconto S | N ?");
-                String option = scanner.next();
-                if (option.equalsIgnoreCase("s")){
-                    double discount = askDiscount();
-                }
+        else {
+            if (sale.getTotalPrice() >= 250) {
+                applyDiscount();
             }
+            sale.finish();
+            Receipt receipt = sale.generateReceipt();
+            updateStock();
+            return receipt;
+        }
+    }
+
+    private void updateStock() {
+    }
+
+    private void applyDiscount() {
+        System.out.println("Deseja aplicar desconto S | N ?");
+        String option = scanner.next();
+        if (option.equalsIgnoreCase("s")) {
+            double discount = askDiscount();
+            sale.setDiscountPercent(discount);
         }
     }
 
     private double askDiscount() {
-        System.out.println();
+        System.out.println("Qual o percentual de desconto que deseja aplicar ?");
+        double discount = 0;
+        do {
+            System.out.println("Valores permitidos estão dentro do conjunto 1% e 10%");
+            discount = readDouble(scanner);
+        } while ((discount < 1 || discount > 10));
+        return discount;
     }
 
     private void removeItem() {

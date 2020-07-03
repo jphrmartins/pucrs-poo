@@ -8,6 +8,7 @@ public class Sale {
     private static int ACTUAL_ID = 1;
     private int id;
     private SaleStatus status;
+    private double discountPercent;
     private List<Product> items;
 
     public Sale() {
@@ -50,6 +51,14 @@ public class Sale {
 
     public void removeItem(Product product) {
         items.remove(product);
+    }
+
+    public double getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public void setDiscountPercent(double discountPercent) {
+        this.discountPercent = discountPercent;
     }
 
     public double getTotalPrice() {
