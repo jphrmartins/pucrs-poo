@@ -45,8 +45,12 @@ public class Stock {
         database.updateStockItems(listOfProducts);
     }
 
-    private void updateStock(Product product) {
-        HashMap<String, Object> a;
-        this.listOfProducts.get(product.getBarCode())
+    private void updateStock(Product productToUpdate) {
+        Product product = this.listOfProducts.get(productToUpdate.getBarCode());
+        if (product != null) {
+            product.setAmount(product.getAmount() + productToUpdate.getAmount());
+        } else {
+            this.listOfProducts.put(productToUpdate.getBarCode(), productToUpdate);
+        }
     }
 }
