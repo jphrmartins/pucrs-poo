@@ -8,11 +8,11 @@ public class Sale {
     private static int ACTUAL_ID = 1;
     private int id;
     private SaleStatus status;
-    private List<Product> itens;
+    private List<Product> items;
 
     public Sale() {
         this.id = ACTUAL_ID++;
-        this.itens = new ArrayList<>();
+        this.items = new ArrayList<>();
     }
 
     public int getId() {
@@ -22,11 +22,11 @@ public class Sale {
     public void addItem(Product product) {
         Product productInList = findProduct(product.getBarCode());
         if (productInList != null) productInList.setAmount(productInList.getAmount() + 1);
-        else this.itens.add(product);
+        else this.items.add(product);
     }
 
     public Product findProduct(String barCode) {
-        return itens.stream()
+        return items.stream()
                 .filter(it -> it.getBarCode().equals(barCode))
                 .findFirst()
                 .orElseThrow(() -> new ProductNotFoundException(barCode));
@@ -44,11 +44,17 @@ public class Sale {
         this.status = SaleStatus.FINISHED;
     }
 
-    public List<Product> getItens() {
-        return itens;
+    public List<Product> getItems() {
+        return items;
     }
 
     public void removeItem(Product product) {
-        itens.remove(product);
+        items.remove(product);
+    }
+
+    public double getTotalPrice(){
+        return items.stream()
+                .mapToDouble(it -> it.getAmount() * it.getPrice())
+                .sum();
     }
 }

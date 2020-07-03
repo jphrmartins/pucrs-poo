@@ -37,22 +37,33 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
                     removeItem();
                     break;
                 case 3:
-                    sale.getItens().forEach(System.out::println);
+                    sale.getItems().forEach(System.out::println);
                     break;
                 case 4:
-                    endSale();
+                    try {
+                        endSale();
+                    } catch (CanNotCloseSaleWhithoutItemsExeption ex){
+                        System.err.println(ex.getMessage());
+                    }
+
+
                     break;
             }
         } while (option >= 1 && option < 4);
     }
 
     private void endSale() {
-        if (sale.getItens().isEmpty()) throw new CanNotCloseSaleWhithoutItemsExeption // TODO: 01/07/2020  
+        if (sale.getItems().isEmpty()) throw new CanNotCloseSaleWhithoutItemsExeption();
+        else{
+            if (sale.getTotalPrice() >= 250){
+                System.out.println("Deseja aplicar desconto ?");
+            }
+        }
         
     }
 
     private void removeItem() {
-        if (sale.getItens().isEmpty()) {
+        if (sale.getItems().isEmpty()) {
             System.out.println("Venda não possui nenhum intem, por favor, insira um item");
         } else {
             try {
