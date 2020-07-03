@@ -45,8 +45,6 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
                     } catch (CanNotCloseSaleWhithoutItemsExeption ex){
                         System.err.println(ex.getMessage());
                     }
-
-
                     break;
             }
         } while (option >= 1 && option < 4);
@@ -56,10 +54,17 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
         if (sale.getItems().isEmpty()) throw new CanNotCloseSaleWhithoutItemsExeption();
         else{
             if (sale.getTotalPrice() >= 250){
-                System.out.println("Deseja aplicar desconto ?");
+                System.out.println("Deseja aplicar desconto S | N ?");
+                String option = scanner.next();
+                if (option.equalsIgnoreCase("s")){
+                    double discount = askDiscount();
+                }
             }
         }
-        
+    }
+
+    private double askDiscount() {
+        System.out.println();
     }
 
     private void removeItem() {
