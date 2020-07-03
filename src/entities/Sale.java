@@ -68,6 +68,12 @@ public class Sale {
     }
 
     public Receipt generateReceipt() {
-        return null;
+        double totalPrice = getTotalPrice();
+        double discount = totalPrice * discountPercent;
+        totalPrice = totalPrice - discount;
+        double tax = totalPrice * 0.25;
+        totalPrice = totalPrice + tax;
+
+        return new Receipt(getId(), getTotalPrice(), discount,tax,totalPrice,getItems());
     }
 }
