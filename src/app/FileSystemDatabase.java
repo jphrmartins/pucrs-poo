@@ -24,7 +24,7 @@ public class FileSystemDatabase implements SystemDatabase {
     private Map<Integer, Sale> getSalesBase() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(SALES_FILE_NAME)));
-            return bufferedReader.lines()
+            return bufferedReader.lines().filter(it -> !it.isBlank())
                     .map(it -> it.split(";"))
                     .map(this::buildSale)
                     .collect(Collectors.toMap(Sale::getId, Function.identity()));
@@ -44,6 +44,7 @@ public class FileSystemDatabase implements SystemDatabase {
                 String product = value.getDescription() + ";" + value.getPrice() + ";"
                         + value.getBarCode() + ";" + value.getAmount();
                 bufferedWriter.write(product);
+                bufferedWriter.write("\n");
             }
             bufferedWriter.flush();
         } catch (IOException e) {
@@ -64,6 +65,8 @@ public class FileSystemDatabase implements SystemDatabase {
                 ).collect(Collectors.joining("?"));
                 String sale = value.getStatus().name() + ";" + value.getDiscountPercent() + ";" + items;
                 bufferedWriter.write(sale);
+                bufferedWriter.write("\n");
+
             }
             bufferedWriter.flush();
         } catch (IOException e) {
@@ -75,7 +78,7 @@ public class FileSystemDatabase implements SystemDatabase {
     private Map<String, Product> getStock() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(STOCK_FILE_NAME)));
-            return bufferedReader.lines()
+            return bufferedReader.lines().filter(it -> !it.isBlank())
                     .map(it -> it.split(";"))
                     .map(this::buildProduct)
                     .collect(Collectors.toMap(Product::getBarCode, Function.identity()));

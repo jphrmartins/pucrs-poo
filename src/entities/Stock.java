@@ -17,6 +17,10 @@ public class Stock {
         this.listOfProducts = listOfProducts;
     }
 
+    public boolean hasProduct(String barCode) {
+        return listOfProducts.containsKey(barCode);
+    }
+
     public Product getProduct(String barCode) {
         return this.listOfProducts.get(barCode);
     }
@@ -27,10 +31,12 @@ public class Stock {
 
     public void addProduct(Product stockItem) {
         this.listOfProducts.put(stockItem.getBarCode(), stockItem);
+        database.updateStockItems(listOfProducts);
     }
 
     public void stockAdjust(String barCode, int amount) {
         this.listOfProducts.get(barCode).setAmount(this.listOfProducts.get(barCode).getAmount() + amount);
+        database.updateStockItems(listOfProducts);
     }
 
     public void updateForCancelSale(Sale sale) {

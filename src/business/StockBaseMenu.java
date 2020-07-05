@@ -81,6 +81,8 @@ public class StockBaseMenu implements BaseMenuOperator {
         double price = readDouble(scanner);
         System.out.print("Quantidade: ");
         int amount = readInteger(scanner);
+        if (!stock.hasProduct(barCode))
         stock.addProduct(new Product(description, price, barCode, amount));
+        else System.out.println("Este produto ja existe no estoque");
     }
 }
