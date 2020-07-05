@@ -80,7 +80,6 @@ public class SalesBaseMenu implements BaseMenuOperator {
         int saleId = ReaderHelper.readInteger(scanner);
         try {
             Sale sale = salesBase.find(saleId);
-            System.out.println("Recibo da venda: " + saleId);
             System.out.println(sale.generateReceipt());
         } catch (SaleNotFoundException ex) {
             System.err.println(ex.getMessage());
