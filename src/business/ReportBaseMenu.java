@@ -57,7 +57,7 @@ public class ReportBaseMenu implements BaseMenuOperator {
         saleBase.getAllSales().stream()
                 .filter(it -> it.getStatus() == SaleStatus.FINISHED)
                 .forEach(it -> productsToProcess.addAll(it.getItems()));
-        List<Product> topFiveProducts = productsToProcess.stream()
+        List<Product> orderedProducts = productsToProcess.stream()
                 .collect(Collectors.groupingBy(Product::getBarCode, Collectors.reducing((first, last) -> new Product(
                         first.getDescription(),
                         first.getPrice(),
@@ -66,11 +66,10 @@ public class ReportBaseMenu implements BaseMenuOperator {
                 .stream()
                 .filter(Optional::isPresent) // Filtra os presentes
                 .map(Optional::get) // Pega os presentes
-                .sorted(Comparator.comparing(Product::getAmount)) // Orderna pela quantidade
-                .limit(5) // Pega os 5 primeiros
-                .collect(Collectors.toList()); // Junta na lista
+                .sorted(Comparator.comparing(Product::getAmount))
+                .collect(Collectors.toList());
         System.out.println("Top 5 itens vendidos ");
-        topFiveProducts.forEach(System.out::println);
+        orderedProducts.subList(0, 4).forEach(System.out::println);
     }
 
     private void calculateAverageValue() {
