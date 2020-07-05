@@ -2,7 +2,7 @@ package business;
 
 import entities.*;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ReportBaseMenu implements BaseMenuOperator {
@@ -24,7 +24,7 @@ public class ReportBaseMenu implements BaseMenuOperator {
 
     @Override
     public MenuRange getMenuRange() {
-        return new MenuRange(1,5);
+        return new MenuRange(1, 5);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class ReportBaseMenu implements BaseMenuOperator {
                 calculateAverageValue();
                 break;
             case 3:
-
+                getTopFiveSalesProducts();
                 break;
             case 4:
                 saleBase.getAllSales().stream()
@@ -50,6 +50,25 @@ public class ReportBaseMenu implements BaseMenuOperator {
                         .forEach(System.out::println);
                 break;
         }
+    }
+
+    private void getTopFiveSalesProducts() {
+        List<Product> products = saleBase.getAllSales().stream()
+                .filter(it -> it.getStatus() == SaleStatus.FINISHED)
+                .flatMap(it -> it.getItems().stream())
+                .collect(Collectors.groupingBy(Product::getBarCode, Collectors.reducing((first, last) -> new Product(
+                        first.getDescription(),
+                        first.getPrice(),
+                        first.getBarCode(), first.getAmount() + last.getAmount())))
+                ).values()
+                .stream()
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .sorted(Comparator.comparing(Product::getAmount))
+                .limit(5)
+                .collect(Collectors.toList());
+        System.out.println("Top 5 itens vendidos ");
+        products.forEach(System.out::println);
     }
 
     private void calculateAverageValue() {
@@ -62,7 +81,7 @@ public class ReportBaseMenu implements BaseMenuOperator {
             for (Receipt receipt : receipts) {
                 total += receipt.getTotal();
             }
-            System.out.println("Média do faturamento total: " + total/receipts.size());
+            System.out.println("Média do faturamento total: " + total / receipts.size());
         } else System.out.println("Imposivel calcular média do faturamento total pois não existe vendas fechadas");
     }
 

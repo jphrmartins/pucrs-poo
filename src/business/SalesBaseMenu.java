@@ -5,6 +5,8 @@ import entities.*;
 
 import java.util.Scanner;
 
+import static java.util.stream.Collectors.groupingBy;
+
 
 public class SalesBaseMenu implements BaseMenuOperator {
 
