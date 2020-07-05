@@ -1,0 +1,4 @@
+1;FINISHED;0.0;nissin lamam miojo de frango|80.0|12|10
+2;CANCELED;0.0;nissin lamam miojo de frango|80.0|12|13
+3;FINISHED;0.0;nissin lamam miojo de frango|80.0|12|8
+4;FINISHED;0.0;nissin lamam miojo de frango|80.0|12|4

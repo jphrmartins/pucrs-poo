@@ -57,19 +57,25 @@ public class ReportBaseMenu implements BaseMenuOperator {
         saleBase.getAllSales().stream()
                 .filter(it -> it.getStatus() == SaleStatus.FINISHED)
                 .forEach(it -> productsToProcess.addAll(it.getItems()));
-        List<Product> orderedProducts = productsToProcess.stream()
-                .collect(Collectors.groupingBy(Product::getBarCode, Collectors.reducing((first, last) -> new Product(
-                        first.getDescription(),
-                        first.getPrice(),
-                        first.getBarCode(), first.getAmount() + last.getAmount()))) // Agrupa por código de barra, somando a quantidade total
-                ).values() //pega só os valores
-                .stream()
-                .filter(Optional::isPresent) // Filtra os presentes
-                .map(Optional::get) // Pega os presentes
-                .sorted(Comparator.comparing(Product::getAmount))
-                .collect(Collectors.toList());
-        System.out.println("Top 5 itens vendidos ");
-        orderedProducts.subList(0, 4).forEach(System.out::println);
+        if (productsToProcess.isEmpty()) {
+            System.out.println("Impossível analisar itens mais vendidos pois não existem vendas finalizadas");
+        } else {
+            List<Product> orderedProducts = productsToProcess.stream()
+                    .collect(Collectors.groupingBy(Product::getBarCode, Collectors.reducing((first, last) -> new Product(
+                            first.getDescription(),
+                            first.getPrice(),
+                            first.getBarCode(), first.getAmount() + last.getAmount()))) // Agrupa por código de barra, somando a quantidade total
+                    ).values() //pega só os valores
+                    .stream()
+                    .filter(Optional::isPresent) // Filtra os presentes
+                    .map(Optional::get) // Pega os presentes
+                    .sorted((first, last) -> last.getAmount().compareTo(first.getAmount()))// Pega a ordem decrescente
+                    .collect(Collectors.toList());
+            System.out.println("Top 5 itens vendidos ");
+            for (int i = 0; i < orderedProducts.size() || i < 5; i++) {
+                System.out.println(orderedProducts.get(i));
+            }
+        }
     }
 
     private void calculateAverageValue() {
@@ -90,13 +96,18 @@ public class ReportBaseMenu implements BaseMenuOperator {
         double totalGrossValue = 0;
         double totalNetValue = 0;
         List<Receipt> receipts = saleBase.getAllSales().stream()
+                .filter(it -> it.getStatus() == SaleStatus.FINISHED)
                 .map(Sale::generateReceipt)
                 .collect(Collectors.toList());
-        for (Receipt receipt : receipts) {
-            totalGrossValue += receipt.getTotal();
-            totalNetValue += receipt.getTotal() - receipt.getTax();
+        if (receipts.isEmpty()) {
+            System.out.println("Impossível analisar itens mais vendidos pois não existem vendas finalizadas");
+        } else {
+            for (Receipt receipt : receipts) {
+                totalGrossValue += receipt.getTotal();
+                totalNetValue += receipt.getTotal() - receipt.getTax();
+            }
+            System.out.println("Total faturado bruto: " + totalGrossValue);
+            System.out.println("Total faturado liquido: " + totalNetValue);
         }
-        System.out.println("Total faturado bruto: " + totalGrossValue);
-        System.out.println("Total faturado liquido: " + totalNetValue);
     }
 }

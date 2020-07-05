@@ -26,10 +26,10 @@ public class Product {
     }
 
     public double getPrice() {
-        return this.price;
+        return round(this.price);
     }
 
-    public int getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
@@ -45,9 +45,15 @@ public class Product {
     public String toString() {
         return "Produto{" +
                 "Descrição = '" + description + '\'' +
-                ", Preço = " + price +
+                ", Preço = " + round(price) +
                 ", Codigo de Barras = '" + barCode + '\'' +
-                ", Quantidade Disponível em Estoque = " + amount +
+                ", Quantidade = " + amount +
                 '}';
+    }
+
+    private double round(double price) {
+        double priceToRound = price * 100;
+        priceToRound = Math.ceil(priceToRound);
+        return priceToRound / 100;
     }
 }

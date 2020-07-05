@@ -24,7 +24,7 @@ public class FileSystemDatabase implements SystemDatabase {
     private Map<Integer, Sale> getSalesBase() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(SALES_FILE_NAME)));
-            return bufferedReader.lines().filter(it -> !it.isBlank())
+            return bufferedReader.lines().filter(it -> !it.trim().isEmpty())
                     .map(it -> it.split(";"))
                     .map(this::buildSale)
                     .collect(Collectors.toMap(Sale::getId, Function.identity()));
@@ -63,7 +63,7 @@ public class FileSystemDatabase implements SystemDatabase {
                         it.getDescription() + "|" + it.getPrice() + "|"
                                 + it.getBarCode() + "|" + it.getAmount()
                 ).collect(Collectors.joining("?"));
-                String sale = value.getStatus().name() + ";" + value.getDiscountPercent() + ";" + items;
+                String sale = value.getId() + ";" + value.getStatus().name() + ";" + value.getDiscountPercent() + ";" + items;
                 bufferedWriter.write(sale);
                 bufferedWriter.write("\n");
 
@@ -78,7 +78,7 @@ public class FileSystemDatabase implements SystemDatabase {
     private Map<String, Product> getStock() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(STOCK_FILE_NAME)));
-            return bufferedReader.lines().filter(it -> !it.isBlank())
+            return bufferedReader.lines().filter(it -> !it.trim().isEmpty())
                     .map(it -> it.split(";"))
                     .map(this::buildProduct)
                     .collect(Collectors.toMap(Product::getBarCode, Function.identity()));
@@ -88,13 +88,14 @@ public class FileSystemDatabase implements SystemDatabase {
         }
     }
 
-    private Sale buildSale(String[] splitedSale) {
-        String[] splittedItems = splitedSale[2].split("\\?");
+    private Sale buildSale(String[] splittedSale) {
+        String[] splittedItems = splittedSale[3].split("\\?");
         List<Product> items = Stream.of(splittedItems)
                 .map(it -> it.split("\\|"))
                 .map(this::buildProduct)
                 .collect(Collectors.toList());
-        return new Sale(SaleStatus.valueOf(splitedSale[0]), Double.parseDouble(splitedSale[1]), items);
+        return new Sale(Integer.parseInt(splittedSale[0]), SaleStatus.valueOf(splittedSale[1]),
+                Double.parseDouble(splittedSale[2]), items);
     }
 
     private Product buildProduct(String[] it) {

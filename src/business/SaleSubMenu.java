@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 import static business.ReaderHelper.*;
 
-public class SaleSubMenu implements SubMenuOperator<Sale> {
+public class SaleSubMenu implements SubMenuOperator {
 
     private Scanner scanner;
     private Stock stock;
@@ -23,7 +23,7 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
     }
 
     @Override
-    public void operate(Sale sale) {
+    public void operate() {
         System.out.println("===============");
         int option;
         do {
@@ -33,7 +33,7 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
                 case 1:
                     try {
                         addItem();
-                    } catch (ProductNotFoundException ex) {
+                    } catch (ProductNotFoundException | ProductOutOfStockException ex) {
                         System.err.println(ex.getMessage());
                     }
                     break;
@@ -82,7 +82,7 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
 
     private double askDiscount() {
         System.out.println("Qual o percentual de desconto que deseja aplicar ?");
-        double discount = 0;
+        double discount;
         do {
             System.out.println("Valores permitidos estão dentro do conjunto 1% e 10%");
             discount = readDouble(scanner);
@@ -110,25 +110,30 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
         if (product.getAmount() < amount) throw new InvalidAmountOfProductException(product.getAmount());
         else if (product.getAmount() == amount) sale.removeItem(product);
         else product.setAmount(product.getAmount() - amount);
+        stock.stockAdjust(product.getBarCode(), amount);
     }
 
 
     private void addItem() {
-        String in;
+        String barCode;
         do {
             System.out.println("Entre com o código de barras ou 'S' para sair");
-            in = scanner.nextLine();
-            if (Pattern.matches("^[0-9]+$", in)) {
-                Product product = stock.getProduct(in);
+            barCode = scanner.nextLine();
+            if (barCode.equalsIgnoreCase("s")) break;
+            if (Pattern.matches("^[0-9]+$", barCode)) {
+                Product product = stock.getProduct(barCode);
                 if (product != null) {
                     if (product.getAmount() == 0) throw new ProductOutOfStockException(product);
-                    product.setAmount(product.getAmount() - 1);
+                    stock.decrement(product.getBarCode());
                     Product item = product.duplicate();
                     item.setAmount(1);
                     sale.addItem(item);
-                }
+                    System.out.println("Item adicionado");
+                } else throw new ProductNotFoundException(barCode);
+            } else {
+                System.out.println("Código de barra inválido, código de barra deve conter somente numeros");
             }
-        } while (!in.equalsIgnoreCase("s"));
+        } while (true);
     }
 
     private int readOption() {

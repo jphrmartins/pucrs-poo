@@ -12,23 +12,11 @@ public class Receipt {
 
     public Receipt(int id, double totalPrice, double discount, double tax, double total, List<Product> list) {
         this.id = id;
-        this.totalPrice = totalPrice;
+        this.totalPrice = round(totalPrice);
         this.discount = discount;
-        this.tax = tax;
-        this.total = total;
+        this.tax = round(tax);
+        this.total = round(total);
         this.list = list;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public double getDiscount() {
-        return discount;
     }
 
     public double getTax() {
@@ -39,14 +27,10 @@ public class Receipt {
         return total;
     }
 
-    public List<Product> getList() {
-        return list;
-    }
-
     @Override
     public String toString() {
         StringBuilder stringBuilder;
-        stringBuilder = new StringBuilder("=====================================");
+        stringBuilder = new StringBuilder("=====================================\n");
         stringBuilder.append("Recibo de venda número: ").append(this.id).append("\n");
         stringBuilder.append("Numero do item | Código | Descricão | Preço unitário | Quantidade | Valor do item \n");
         for (int i = 0; i < list.size(); i++) {
@@ -55,13 +39,19 @@ public class Receipt {
                     .append(list.get(i).getDescription()).append(" | ")
                     .append(list.get(i).getPrice()).append(" | ")
                     .append(list.get(i).getAmount()).append(" | ")
-                    .append((list.get(i).getAmount()) * (list.get(i).getPrice())).append("\n");
+                    .append((round(list.get(i).getAmount() * list.get(i).getPrice()))).append("\n");
         }
         stringBuilder.append("\t\t\t\tTotal | ").append(this.totalPrice).append("\n")
                     .append("\t\t\t\tDesconto | ").append(this.discount).append("\n")
                     .append("\t\t\t\tImposto | ").append(this.tax).append("\n")
                 .append("\t\t\t\tValor da venda  | ").append(this.total);
-        stringBuilder.append("=====================================");
+        stringBuilder.append("\n=====================================\n");
         return stringBuilder.toString();
+    }
+
+    private double round(double price) {
+        double roundedPrice = price * 100;
+        roundedPrice = Math.ceil(roundedPrice);
+        return roundedPrice / 100;
     }
 }

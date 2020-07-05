@@ -52,4 +52,10 @@ public class Stock {
                 });
         database.updateStockItems(listOfProducts);
     }
+
+    public void decrement(String barCode) {
+        Product product = this.listOfProducts.get(barCode);
+        product.setAmount(product.getAmount() - 1);
+        database.updateStockItems(listOfProducts);
+    }
 }

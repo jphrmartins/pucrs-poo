@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Sale {
 
@@ -11,8 +12,9 @@ public class Sale {
     private double discountPercent;
     private List<Product> items;
 
-    public Sale(SaleStatus status, double discountPercent, List<Product> items) {
-        this.id = ACTUAL_ID++;
+    public Sale(int id, SaleStatus status, double discountPercent, List<Product> items) {
+        this.id = id;
+        ACTUAL_ID = id;
         this.status = status;
         this.discountPercent = discountPercent;
         this.items = items;
@@ -28,9 +30,12 @@ public class Sale {
     }
 
     public void addItem(Product product) {
-        Product productInList = findProduct(product.getBarCode());
-        if (productInList != null) productInList.setAmount(productInList.getAmount() + 1);
-        else this.items.add(product);
+        try {
+            Product productInList = findProduct(product.getBarCode());
+            productInList.setAmount(productInList.getAmount() + 1);
+        } catch (ProductNotFoundException ex) {
+            this.items.add(product);
+        }
     }
 
     public Product findProduct(String barCode) {
@@ -75,13 +80,23 @@ public class Sale {
     }
 
     public Receipt generateReceipt() {
-
         double totalPrice = getTotalPrice();
         double discount = (totalPrice * discountPercent) / 100;
         totalPrice = totalPrice - discount;
         double tax = totalPrice * 0.25;
         totalPrice = totalPrice + tax;
 
-        return new Receipt(getId(), getTotalPrice(), discount,tax,totalPrice,getItems());
+        return new Receipt(getId(), getTotalPrice(), discount, tax, totalPrice, getItems());
+    }
+
+    @Override
+    public String toString() {
+        String items = this.items.stream().map(Product::toString).collect(Collectors.joining(", "));
+        return "Venda{" +
+                "id = " + id +
+                ", status = " + status.getNamedStatus() +
+                ", percentual de desconto = " + discountPercent +
+                ", itens = [" + items + "]" +
+                '}';
     }
 }

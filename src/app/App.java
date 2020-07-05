@@ -1,9 +1,6 @@
 package app;
 
-import business.Menu;
-import business.SaleSubMenu;
-import business.SalesBaseMenu;
-import business.StockBaseMenu;
+import business.*;
 import entities.MenuType;
 
 
@@ -17,8 +14,11 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         SystemDatabase database = new FileSystemDatabase();
         SystemDependencies system = database.loadSystem();
-        Menu menu = new Menu(Arrays.asList(new SalesBaseMenu(new SaleSubMenu(scanner, system), system, scanner),
-                new StockBaseMenu(system.getStock(), scanner)), scanner);
+        Menu menu = new Menu(Arrays.asList(
+                new SalesBaseMenu(system, scanner),
+                new StockBaseMenu(system.getStock(), scanner),
+                new ReportBaseMenu(system.getSalesBase())
+        ), scanner);
         int option = 1;
 
         while (option >= 1 && option <= 4) {

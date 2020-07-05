@@ -72,7 +72,7 @@ public class StockBaseMenu implements BaseMenuOperator {
     }
 
     private void registerNewProduct() {
-        System.out.println("Entre com a descrição, preço, código de barras e quantidae inicial do estoque.");
+        System.out.println("Entre com a descrição, preço, código de barras e quantidade inicial do estoque.");
         System.out.print("Código de barras: ");
         String barCode = readBarCode(scanner);
         System.out.print("Descrição: ");

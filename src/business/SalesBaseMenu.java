@@ -5,20 +5,15 @@ import entities.*;
 
 import java.util.Scanner;
 
-import static java.util.stream.Collectors.groupingBy;
-
-
 public class SalesBaseMenu implements BaseMenuOperator {
 
     private Stock stock;
     private Scanner scanner;
     private SalesBase salesBase;
-    private SubMenuOperator<Sale> saleSubMenuSale;
 
-    public SalesBaseMenu(SubMenuOperator<Sale> saleSubMenuSale, SystemDependencies systemDependencies, Scanner scanner) {
+    public SalesBaseMenu(SystemDependencies systemDependencies, Scanner scanner) {
         this.stock = systemDependencies.getStock();
         this.salesBase = systemDependencies.getSalesBase();
-        this.saleSubMenuSale = saleSubMenuSale;
         this.scanner = scanner;
     }
 
@@ -66,15 +61,11 @@ public class SalesBaseMenu implements BaseMenuOperator {
         int saleId = ReaderHelper.readInteger(scanner);
         try {
             Sale sale = salesBase.find(saleId);
-            updateBase(sale);
+            stock.updateForCancelSale(sale);
+            salesBase.cancelSale(sale);
         } catch (SaleNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
-    }
-
-    private void updateBase(Sale sale) {
-        stock.updateForCancelSale(sale);
-        salesBase.cancelSale(sale);
     }
 
     private void regenerateReceipt() {
@@ -89,6 +80,7 @@ public class SalesBaseMenu implements BaseMenuOperator {
     }
 
     private void registerSale() {
-        saleSubMenuSale.operate(new Sale());
+        SaleSubMenu saleSubMenu = new SaleSubMenu(scanner, new SystemDependencies(stock, salesBase));
+        saleSubMenu.operate();
     }
 }
