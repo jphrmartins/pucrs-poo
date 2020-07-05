@@ -72,7 +72,7 @@ public class ReportBaseMenu implements BaseMenuOperator {
                     .sorted((first, last) -> last.getAmount().compareTo(first.getAmount()))// Pega a ordem decrescente
                     .collect(Collectors.toList());
             System.out.println("Top 5 itens vendidos ");
-            for (int i = 0; i < orderedProducts.size() || i < 5; i++) {
+            for (int i = 0; i < orderedProducts.size() && i < 5; i++) {
                 System.out.println(orderedProducts.get(i));
             }
         }
