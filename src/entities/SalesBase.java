@@ -16,17 +16,9 @@ public class SalesBase {
         this.sales = sales;
     }
 
-    Sale getSale(int saleId) {
-        return sales.get(saleId);
-    }
-
-    public boolean addSale(Sale sale){
+    public void addSale(Sale sale) {
         this.sales.put(sale.getId(), sale);
-        return true;
-    }
-
-    public Map<Integer, Sale> getSales() {
-        return sales;
+        systemDatabase.updateSalesBase(this.sales);
     }
 
     public List<Sale> getAllSales() {
@@ -39,6 +31,9 @@ public class SalesBase {
         throw new SaleNotFoundException(saleId);
     }
 
-    public void cancelSale(Sale sale) {
+    public void cancelSale(Sale saleToCancel) {
+        Sale sale = sales.get(saleToCancel.getId());
+        sale.cancel();
+        systemDatabase.updateSalesBase(sales);
     }
 }

@@ -36,16 +36,14 @@ public class Stock {
     public void updateForCancelSale(Sale sale) {
         sale.getItems().stream()
                 .map(Product::duplicate)
-                .forEach(this::updateStock);
+                .forEach(productToUpdate -> {
+                    Product product = this.listOfProducts.get(productToUpdate.getBarCode());
+                    if (product != null) {
+                        product.setAmount(product.getAmount() + productToUpdate.getAmount());
+                    } else {
+                        this.listOfProducts.put(productToUpdate.getBarCode(), productToUpdate);
+                    }
+                });
         database.updateStockItems(listOfProducts);
-    }
-
-    private void updateStock(Product productToUpdate) {
-        Product product = this.listOfProducts.get(productToUpdate.getBarCode());
-        if (product != null) {
-            product.setAmount(product.getAmount() + productToUpdate.getAmount());
-        } else {
-            this.listOfProducts.put(productToUpdate.getBarCode(), productToUpdate);
-        }
     }
 }

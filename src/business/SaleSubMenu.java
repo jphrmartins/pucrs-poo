@@ -31,7 +31,11 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
             option = readOption();
             switch (option) {
                 case 1:
-                    addItem();
+                    try {
+                        addItem();
+                    } catch (ProductNotFoundException ex) {
+                        System.err.println(ex.getMessage());
+                    }
                     break;
                 case 2:
                     removeItem();
@@ -48,25 +52,23 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
                         System.err.println(ex.getMessage());
                     }
                     break;
+                case 5:
+                    stock.updateForCancelSale(sale);
+                    break;
             }
             if (sale.getStatus() == SaleStatus.FINISHED) break;
-        } while (option >= 1 && option < 4);
+        } while (option >= 1 && option < 5);
     }
 
     private Receipt endSale() {
         if (sale.getItems().isEmpty()) throw new CanNotCloseSaleWhithoutItemsExeption();
         else {
-            if (sale.getTotalPrice() >= 250) {
-                applyDiscount();
-            }
+            if (sale.getTotalPrice() >= 250) applyDiscount();
             sale.finish();
             Receipt receipt = sale.generateReceipt();
-            updateStock();
+            salesBase.addSale(sale);
             return receipt;
         }
-    }
-
-    private void updateStock() {
     }
 
     private void applyDiscount() {
@@ -119,6 +121,8 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
             if (Pattern.matches("^[0-9]+$", in)) {
                 Product product = stock.getProduct(in);
                 if (product != null) {
+                    if (product.getAmount() == 0) throw new ProductOutOfStockException(product);
+                    product.setAmount(product.getAmount() - 1);
                     Product item = product.duplicate();
                     item.setAmount(1);
                     sale.addItem(item);
@@ -129,8 +133,8 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
 
     private int readOption() {
         int option = readInteger(scanner);
-        while (option < 1 || option > 3) {
-            System.out.println("valor invalido, por favor, digite um valor no conjuto [1,3]");
+        while (option < 1 || option > 6) {
+            System.out.println("valor invalido, por favor, digite um valor no conjuto [1,5]");
             option = readInteger(scanner);
         }
         return option;
@@ -142,7 +146,8 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
                 "1 - Adicionar Item\n" +
                         "2 - Remover Item\n" +
                         "3 - Listar Itens\n" +
-                        "4 - Finalizar"
+                        "4 - Finalizar\n" +
+                        "5 - Sair"
         );
     }
 }

@@ -64,14 +64,13 @@ public class SalesBaseMenu implements BaseMenuOperator {
         int saleId = ReaderHelper.readInteger(scanner);
         try {
             Sale sale = salesBase.find(saleId);
-            sale.cancel();
-            updateStocks(sale);
+            updateBase(sale);
         } catch (SaleNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
     }
 
-    private void updateStocks(Sale sale) {
+    private void updateBase(Sale sale) {
         stock.updateForCancelSale(sale);
         salesBase.cancelSale(sale);
     }
