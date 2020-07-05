@@ -53,9 +53,11 @@ public class ReportBaseMenu implements BaseMenuOperator {
     }
 
     private void getTopFiveSalesProducts() {
-        List<Product> products = saleBase.getAllSales().stream()
+        List<Product> productsToProcess = new ArrayList<>();
+        saleBase.getAllSales().stream()
                 .filter(it -> it.getStatus() == SaleStatus.FINISHED)
-                .flatMap(it -> it.getItems().stream())
+                .forEach(it -> productsToProcess.addAll(it.getItems()));
+        List<Product> topFiveProducts = productsToProcess.stream()
                 .collect(Collectors.groupingBy(Product::getBarCode, Collectors.reducing((first, last) -> new Product(
                         first.getDescription(),
                         first.getPrice(),
@@ -68,7 +70,7 @@ public class ReportBaseMenu implements BaseMenuOperator {
                 .limit(5) // Pega os 5 primeiros
                 .collect(Collectors.toList()); // Junta na lista
         System.out.println("Top 5 itens vendidos ");
-        products.forEach(System.out::println);
+        topFiveProducts.forEach(System.out::println);
     }
 
     private void calculateAverageValue() {
