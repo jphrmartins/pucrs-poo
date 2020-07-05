@@ -11,6 +11,13 @@ public class Sale {
     private double discountPercent;
     private List<Product> items;
 
+    public Sale(SaleStatus status, double discountPercent, List<Product> items) {
+        this.id = ACTUAL_ID++;
+        this.status = status;
+        this.discountPercent = discountPercent;
+        this.items = items;
+    }
+
     public Sale() {
         this.id = ACTUAL_ID++;
         this.items = new ArrayList<>();

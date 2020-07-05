@@ -1,5 +1,6 @@
 package business;
 
+import app.SystemDependencies;
 import entities.*;
 
 import java.util.Scanner;
@@ -14,10 +15,10 @@ public class SaleSubMenu implements SubMenuOperator<Sale> {
     private SalesBase salesBase;
     private Sale sale;
 
-    public SaleSubMenu(Scanner scanner, Stock stock, SalesBase salesBase) {
+    public SaleSubMenu(Scanner scanner, SystemDependencies systemDependencies) {
         this.scanner = scanner;
-        this.stock = stock;
-        this.salesBase = salesBase;
+        this.stock = systemDependencies.getStock();
+        this.salesBase = systemDependencies.getSalesBase();
         this.sale = new Sale();
     }
 

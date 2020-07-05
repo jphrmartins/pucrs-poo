@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.stream.Stream;
+
 public class Product {
 
     private String description;

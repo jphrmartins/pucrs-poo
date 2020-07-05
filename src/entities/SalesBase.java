@@ -1,14 +1,18 @@
 package entities;
 
+import app.SystemDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class SalesBase {
 
-    private Map<Integer, Sale> sales;
+    private final SystemDatabase systemDatabase;
+    private final Map<Integer, Sale> sales;
 
-    public SalesBase(Map<Integer, Sale> sales) {
+    public SalesBase(SystemDatabase systemDatabase, Map<Integer, Sale> sales) {
+        this.systemDatabase = systemDatabase;
         this.sales = sales;
     }
 
@@ -33,5 +37,8 @@ public class SalesBase {
         Sale sale = sales.get(saleId);
         if (sale != null) return sale;
         throw new SaleNotFoundException(saleId);
+    }
+
+    public void cancelSale(Sale sale) {
     }
 }

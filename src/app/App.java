@@ -17,10 +17,10 @@ import static business.ReaderHelper.readInteger;
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Stock stock = new Stock();
-        SalesBase salesBase = new SalesBase(new HashMap<>());
-        Menu menu = new Menu(Arrays.asList(new SalesBaseMenu(new SaleSubMenu(scanner, stock, salesBase), stock, salesBase),
-                new StockBaseMenu(stock, scanner)), scanner);
+        SystemDatabase database = new FileSystemDatabase();
+        SystemDependencies system = database.loadSystem();
+        Menu menu = new Menu(Arrays.asList(new SalesBaseMenu(new SaleSubMenu(scanner, system), system, scanner),
+                new StockBaseMenu(system.getStock(), scanner)), scanner);
         int option = 1;
 
         while (option >= 1 && option <= 4) {

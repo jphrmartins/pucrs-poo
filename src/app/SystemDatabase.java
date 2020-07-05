@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface SystemDatabase {
-    Map<String, Product> getStock();
-    Map<Integer, Sale> getSalesBase();
+    SystemDependencies loadSystem();
     void updateStockItems(Map<String, Product> products);
-
+    void updateSalesBase(Map<Integer, Sale> sales);
 }

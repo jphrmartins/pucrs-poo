@@ -13,13 +13,9 @@ public class Stock {
     private final SystemDatabase database;
     private final Map<String, Product> listOfProducts;
 
-    public Stock(SystemDatabase systemDatabase) {
+    public Stock(SystemDatabase systemDatabase, Map<String, Product> listOfProducts) {
         this.database = systemDatabase;
-        this.listOfProducts = database.getStock();
-    }
-
-    public boolean hasProduct(String barCode){
-        return this.listOfProducts.containsKey(barCode);
+        this.listOfProducts = listOfProducts;
     }
 
     public Product getProduct(String barCode) {
