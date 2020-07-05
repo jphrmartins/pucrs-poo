@@ -8,7 +8,7 @@ public class Receipt {
     private double discount;
     private double tax;
     private double total;
-    List<Product> list;
+    private List<Product> list;
 
     public Receipt(int id, double totalPrice, double discount, double tax, double total, List<Product> list) {
         this.id = id;
@@ -17,6 +17,30 @@ public class Receipt {
         this.tax = tax;
         this.total = total;
         this.list = list;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public double getTax() {
+        return tax;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public List<Product> getList() {
+        return list;
     }
 
     @Override

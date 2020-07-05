@@ -77,7 +77,7 @@ public class Sale {
     public Receipt generateReceipt() {
 
         double totalPrice = getTotalPrice();
-        double discount = totalPrice * discountPercent;
+        double discount = (totalPrice * discountPercent) / 100;
         totalPrice = totalPrice - discount;
         double tax = totalPrice * 0.25;
         totalPrice = totalPrice + tax;
