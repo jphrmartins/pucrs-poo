@@ -59,14 +59,14 @@ public class ReportBaseMenu implements BaseMenuOperator {
                 .collect(Collectors.groupingBy(Product::getBarCode, Collectors.reducing((first, last) -> new Product(
                         first.getDescription(),
                         first.getPrice(),
-                        first.getBarCode(), first.getAmount() + last.getAmount())))
-                ).values()
+                        first.getBarCode(), first.getAmount() + last.getAmount()))) // Agrupa por código de barra, somando a quantidade total
+                ).values() //pega só os valores
                 .stream()
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .sorted(Comparator.comparing(Product::getAmount))
-                .limit(5)
-                .collect(Collectors.toList());
+                .filter(Optional::isPresent) // Filtra os presentes
+                .map(Optional::get) // Pega os presentes
+                .sorted(Comparator.comparing(Product::getAmount)) // Orderna pela quantidade
+                .limit(5) // Pega os 5 primeiros
+                .collect(Collectors.toList()); // Junta na lista
         System.out.println("Top 5 itens vendidos ");
         products.forEach(System.out::println);
     }
