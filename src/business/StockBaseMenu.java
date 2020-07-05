@@ -76,7 +76,7 @@ public class StockBaseMenu implements BaseMenuOperator {
         System.out.print("Código de barras: ");
         String barCode = readBarCode(scanner);
         System.out.print("Descrição: ");
-        String description = scanner.nextLine();
+        String description = readDescription(scanner);
         System.out.print("Preço: ");
         double price = readDouble(scanner);
         System.out.print("Quantidade: ");

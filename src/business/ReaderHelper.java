@@ -37,4 +37,15 @@ public class ReaderHelper {
         }
         return barCode;
     }
+
+    public static String readDescription(Scanner scanner) {
+        String description = scanner.nextLine();
+        while (!Pattern.matches("^([a-zA-Z0-9]+\\s?)+$", description)) {
+            System.out.println("Descrição iválida");
+            System.out.println("Descrição deve conter apenas letras e números");
+            System.out.print("Descrição: ");
+            description = scanner.nextLine();
+        }
+        return description;
+    }
 }

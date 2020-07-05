@@ -19,4 +19,23 @@ public class Receipt {
         this.list = list;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder values;
+        values = new StringBuilder("Recibo de venda número: " + this.id + "\n");
+        values.append("Numero do item | Código | Descricão | Preço unitário | Quantidade | Valor do item \n");
+        for (int i = 0; i < list.size(); i++) {
+            values.append(i + 1).append(" | ")
+                    .append(list.get(i).getBarCode()).append(" | ")
+                    .append(list.get(i).getDescription()).append(" | ")
+                    .append(list.get(i).getPrice()).append(" | ")
+                    .append(list.get(i).getAmount()).append(" | ")
+                    .append((list.get(i).getAmount()) * (list.get(i).getPrice())).append("\n");
+        }
+        values.append("               Total | ").append(this.totalPrice).append("\n")
+                .append("                  Desconto | ").append(this.discount).append("\n")
+                .append("                  Imposto | ").append(this.tax).append("\n")
+                .append("           Valor da venda  | ").append(this.total);
+        return values.toString();
+    }
 }
