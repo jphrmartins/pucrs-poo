@@ -5,11 +5,9 @@ import business.SaleSubMenu;
 import business.SalesBaseMenu;
 import business.StockBaseMenu;
 import entities.MenuType;
-import entities.SalesBase;
-import entities.Stock;
+
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Scanner;
 
 import static business.ReaderHelper.readInteger;
