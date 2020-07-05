@@ -68,6 +68,7 @@ public class Sale {
     }
 
     public Receipt generateReceipt() {
+
         double totalPrice = getTotalPrice();
         double discount = totalPrice * discountPercent;
         totalPrice = totalPrice - discount;
