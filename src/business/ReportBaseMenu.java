@@ -72,7 +72,8 @@ public class ReportBaseMenu implements BaseMenuOperator {
                     .sorted((first, last) -> last.getAmount().compareTo(first.getAmount()))// Pega a ordem decrescente
                     .collect(Collectors.toList());
             System.out.println("Top 5 itens vendidos ");
-            for (int i = 0; i < orderedProducts.size() && i < 5; i++) {
+
+        for (int i = 0; i < orderedProducts.size() && i < 5; i++) {
                 System.out.println(orderedProducts.get(i));
             }
         }
@@ -88,7 +89,7 @@ public class ReportBaseMenu implements BaseMenuOperator {
             for (Receipt receipt : receipts) {
                 total += receipt.getTotal();
             }
-            System.out.println("Média do faturamento total: " + total / receipts.size());
+            System.out.println("Média do faturamento total: " + round(total / receipts.size()));
         } else System.out.println("Imposivel calcular média do faturamento total pois não existe vendas fechadas");
     }
 
@@ -109,5 +110,11 @@ public class ReportBaseMenu implements BaseMenuOperator {
             System.out.println("Total faturado bruto: " + totalGrossValue);
             System.out.println("Total faturado liquido: " + totalNetValue);
         }
+    }
+
+    private double round(double price) {
+        double roundedPrice = price * 100;
+        roundedPrice = Math.ceil(roundedPrice);
+        return roundedPrice / 100;
     }
 }
