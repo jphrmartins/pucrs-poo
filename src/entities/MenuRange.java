@@ -16,4 +16,5 @@ public class MenuRange {
     public int getEndRange() {
         return endRange;
     }
+
 }

@@ -1,4 +1,5 @@
 1;FINISHED;0.0;nissin lamam miojo de frango|80.0|12|10
 2;CANCELED;0.0;nissin lamam miojo de frango|80.0|12|13
 3;FINISHED;0.0;nissin lamam miojo de frango|80.0|12|8
-4;FINISHED;0.0;nissin lamam miojo de frango|80.0|12|4
+4;FINISHED;10.0;nissin lamam miojo de frango|80.0|12|6
+5;FINISHED;5.0;nissin lamam miojo de frango|80.0|12|3?Tv 300 polegadas|1500.0|789321|1

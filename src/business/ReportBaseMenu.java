@@ -64,12 +64,12 @@ public class ReportBaseMenu implements BaseMenuOperator {
                     .collect(Collectors.groupingBy(Product::getBarCode, Collectors.reducing((first, last) -> new Product(
                             first.getDescription(),
                             first.getPrice(),
-                            first.getBarCode(), first.getAmount() + last.getAmount()))) // Agrupa por código de barra, somando a quantidade total
-                    ).values() //pega só os valores
+                            first.getBarCode(), first.getAmount() + last.getAmount())))
+                    ).values()
                     .stream()
-                    .filter(Optional::isPresent) // Filtra os presentes
-                    .map(Optional::get) // Pega os presentes
-                    .sorted((first, last) -> last.getAmount().compareTo(first.getAmount()))// Pega a ordem decrescente
+                    .filter(Optional::isPresent)
+                    .map(Optional::get)
+                    .sorted((first, last) -> last.getAmount().compareTo(first.getAmount()))
                     .collect(Collectors.toList());
             System.out.println("Top 5 itens vendidos ");
 
@@ -78,6 +78,7 @@ public class ReportBaseMenu implements BaseMenuOperator {
             }
         }
     }
+
 
     private void calculateAverageValue() {
         double total = 0;

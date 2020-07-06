@@ -1,6 +1,6 @@
-nissin lamam miojo de frango;80.0;12;73
+nissin lamam miojo de frango;80.0;12;61
 hometheater 91 sourouding 12 subwoofers megabass 30000 decibeis audiveis;5000.0;7456321;39
-Cama king size;6000.0;13;80
+Cama king size;6000.0;13;77
 sarchicha;7.99;9876543;300
 faca de churrasco;150.0;123456789;800
 Mitsubish lancer evo;50000.0;4532176;90
@@ -8,7 +8,7 @@ fone de ouvido jbl 300 pulse product red;600.0;78945632;20
 queijo;3.99;132344565432;90
 peneu pelerele;299.8;78965412;60
 smartwatch xiaome;5.0;741852;40
-Tv 300 polegadas;1500.0;789321;1000
+Tv 300 polegadas;1500.0;789321;995
 Oreo;3.59;789386;2000
 nissa skyline gtr;70000.0;852321456;70
 feijao seu joao;3.5;654221;700
